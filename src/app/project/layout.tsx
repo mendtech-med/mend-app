@@ -34,15 +34,11 @@ export default function RootLayout({
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink className="text-[17px] text-gray-500" href="/">Home</BreadcrumbLink>
+                                    <BreadcrumbLink className="text-[17px] text-gray-500" href="/">Project</BreadcrumbLink>
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator className="text-[17px] text-gray-500" />
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink className="text-[17px] text-gray-500" href="/docs/components">Project</BreadcrumbLink>
-                                </BreadcrumbItem>
-                                <BreadcrumbSeparator className="text-[17px] text-gray-500" />
-                                <BreadcrumbItem>
-                                    <BreadcrumbPage className="text-[17px]"  >Digital Ocean</BreadcrumbPage>
+                                    <BreadcrumbPage className="text-[17px]"  >Moun Project</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>

@@ -19,16 +19,16 @@ export class ReferController {
     async createRefer(req: Request, res: Response) {
         const createReferDto: CreateReferDto = await req.json() as CreateReferDto;
         // TODO: const userId = req.auth.userId;
-        // const { userId } = auth();
-        const userId = "user_2mr1YjrIwUDoyisP94HaiRm3QXS";
+        const { userId } = auth();
+        // const userId = "user_2mr1YjrIwUDoyisP94HaiRm3QXS";
 
         if (!userId) {
             return new Response('Unauthorized', { status: 401 })
-        } logger.info("get refers user : " + userId);
+        }
+
+        logger.info("get refers user : " + userId);
 
         try {
-            // complete the createReferDto with the userId from the request
-            createReferDto.projectId = userId;
             // create the refer
             const refer = await this.createReferUseCase.execute(createReferDto);
             return Response.json(refer);
@@ -39,8 +39,8 @@ export class ReferController {
 
     async getRefers(req: Request, { params }: { params: GetReferDto }) {
         // TODO: const userId = req.auth.userId;
-        // const { userId } = auth();
-        const userId = "user_2mr1YjrIwUDoyisP94HaiRm3QXS";
+        const { userId } = auth();
+        // const userId = "user_2mr1YjrIwUDoyisP94HaiRm3QXS";
 
         if (!userId) {
             return new Response('Unauthorized', { status: 401 })

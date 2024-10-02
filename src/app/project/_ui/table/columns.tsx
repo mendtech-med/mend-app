@@ -20,24 +20,27 @@ export type Refer = {
     createdAt: string
 }
 
-export const columns: ColumnDef<Refer>[] = [
-    {
-        accessorKey: "sourceUrl",
-        header: "Source URL",
+export const columns: ColumnDef<Refer>[] = [{
+    accessorKey: "content",
+    header: "Content",
+    cell: ({ row }) => {
+        return <div className="font-medium rounded-lg flex-1 bg-gray-200 py-4">
+            <textarea className="bg-transparent p-4 py-0 outline-none w-full h-full" value={row.getValue("content")} readOnly />
+        </div>
     },
-    {
-        accessorKey: "content",
-        header: "Content",
-        cell: ({ row }) => {
-            return <div className="font-medium rounded-lg flex-1 bg-gray-300">
-                <textarea className="bg-transparent p-4 outline-none w-full h-full" value={row.getValue("content")} readOnly />
-            </div>
-        },
-    },
-    {
-        accessorKey: "createdAt",
-        header: "Created At",
-    },
+},
+{
+    accessorKey: "sourceUrl",
+    header: "Source URL",
+},
+
+{
+    accessorKey: "createdAt",
+    header: "Created At",
+    cell: ({ row }) => {
+        return row.getValue("createdAt")
+    }
+},
     // {
     //     id: "actions",
     //     // cell: ({ row }) => {

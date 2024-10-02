@@ -99,7 +99,7 @@ class ProjectRepository implements IProjectRepository {
             orderBy: {
                 updatedAt: "desc"
             },
-            take: limit
+            // TODO: take: limit
         }).then(projects => projects.map(project => ({
             id: project.id,
             name: project.name,
