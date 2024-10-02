@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id           String    @id @default(cuid())
+  clerkId      String    @unique
+  emails       String[]
+  phoneNumbers String[]
+  firstName    String?
+  lastName     String?
+  projects     Project[] @relation(name: "ProjectUser")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+// add the user later 
+model Project {
+  id        String   @id @default(cuid())
+  name      String
+  owner     user     @relation(name: "ProjectUser", fields: [ownerId], references: [id])
+  ownerId   String
+  refers    Refer[]  @relation(name: "ProjectRefer")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Refer {
+  id        String   @id @default(cuid())
+  content   String
+  sourceUrl String
+  project   Project  @relation(fields: [projectId], references: [id], name: "ProjectRefer")
+  projectId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
