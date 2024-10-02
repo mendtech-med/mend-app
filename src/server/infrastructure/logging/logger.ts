@@ -1,8 +1,6 @@
 // src/infrastructure/logging/logger.ts
 import { createLogger, format, transports } from "winston";
-import * as dotenv from 'dotenv';
 import envConfig from "../../config/env";
-dotenv.config();
 
 const logger = createLogger({
   level: "info",
