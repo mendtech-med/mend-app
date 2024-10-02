@@ -15,7 +15,6 @@ const Item = ({ route }: { route: Route }) => {
 const Navigation = () => {
     return (
         <div className="navigation">
-            <
         </div>
     );
 }
