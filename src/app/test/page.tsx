@@ -1,4 +1,3 @@
-'use client';
 import React, { useEffect } from 'react';
 
 export default function Page() {
@@ -26,8 +25,6 @@ export default function Page() {
 
 
     return (
-        <div>
-            <h1>Test Page</h1>
-        </div>
+        <h1>Test Page</h1>
     );
 }
