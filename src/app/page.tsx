@@ -1,6 +1,5 @@
 import Title from "./_ui/common/title";
 import Projects from "./_ui/projects";
-import Support from "./_ui/support";
 import Header from "./_ui/global/header";
 
 
@@ -15,8 +14,6 @@ function Home() {
             <Projects />
           </section>
         </div>
-
-
       </div>
     </div>
   )
