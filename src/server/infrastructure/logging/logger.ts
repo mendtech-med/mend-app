@@ -13,17 +13,18 @@ const logger = createLogger({
   exitOnError: false,
   defaultMeta: { service: "api" },
   transports: [
-    new transports.File({ filename: "log/error.log", level: "error" }),
-    new transports.File({ filename: "log/combined.log" }),
-  ],
-});
-
-if (envConfig.nodeEnv !== "production") {
-  logger.add(
     new transports.Console({
       format: format.combine(format.colorize(), format.simple()),
     })
-  );
-}
+  ],
+});
+
+// if (envConfig.nodeEnv !== "production") {
+//   logger.add(
+//     new transports.Console({
+//       format: format.combine(format.colorize(), format.simple()),
+//     })
+//   );
+// }
 
 export default logger;
