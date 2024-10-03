@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 
-const Page = () => {
+export default function Page() {
     useEffect(() => {
 
         const fetchTest = async () => {
@@ -31,5 +31,3 @@ const Page = () => {
         </div>
     );
 }
-
-export default Page;
