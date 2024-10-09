@@ -1,4 +1,6 @@
 'use server';
+export const maxDuration = 60;
+export const dynamic = 'force-dynamic';
 import { bedrock } from '@/server/infrastructure/aws/bedrock.infra';
 import { streamText } from 'ai';
 import { createStreamableValue } from 'ai/rsc';
