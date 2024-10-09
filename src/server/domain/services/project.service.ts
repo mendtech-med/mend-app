@@ -17,7 +17,9 @@ class ProjectService {
 
     async create(project: CreateProjectDto): Promise<Project> {
         return await this.projectRepository.create({
-            name: project.name,
+            title: project.title,
+            content : project.content,
+            audience: project.audience,
             ownerId: project.ownerId
         });
     }
@@ -40,7 +42,8 @@ class ProjectService {
 
         return await this.projectRepository.update({
             id: project.id,
-            name: project.name,
+            title: project.title,
+            content: project.content
         });
     }
 
@@ -71,7 +74,7 @@ class ProjectService {
         return await this.projectRepository.delete({ id });
     }
 
-    async lastUpdatedProjects({ userId  }: LastUpdatedProjectsDto): Promise<Project[]> {
+    async lastUpdatedProjects({ userId }: LastUpdatedProjectsDto): Promise<Project[]> {
         const limit = 3;
         return await this.projectRepository.lastUpdatedProjects({ userId, limit });
     }

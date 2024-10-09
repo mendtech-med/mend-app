@@ -8,32 +8,87 @@ datasource db {
 }
 
 model user {
-  id           String    @id @default(cuid())
-  clerkId      String    @unique
+  id           String               @id @default(cuid())
+  clerkId      String               @unique
   emails       String[]
   phoneNumbers String[]
   firstName    String?
   lastName     String?
-  projects     Project[] @relation(name: "ProjectUser")
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  projects     Project[]            @relation(name: "ProjectUser")
+  brandVoices  AudienceBrandVoice[] @relation(name: "ProjectAudienceBrandVoice")
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
 }
 
 // add the user later 
 model Project {
-  id        String   @id @default(cuid())
-  name      String
-  owner     user     @relation(name: "ProjectUser", fields: [ownerId], references: [id])
+  id        String    @id @default(cuid())
+  title     String
+  owner     user      @relation(name: "ProjectUser", fields: [ownerId], references: [id])
   ownerId   String
-  refers    Refer[]  @relation(name: "ProjectRefer")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  content   String?
+  refers    Refer[]   @relation(name: "ProjectRefer")
+  audience  Audience? @relation(name: "ProjectAudience")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Audience {
+  id           String             @id @default(cuid())
+  target       AudienceTarget
+  level        AudienceLevel
+  brandVoice   AudienceBrandVoice @relation(name: "AudienceBrandVoice", fields: [brandVoiceId], references: [id])
+  brandVoiceId String
+  project      Project            @relation(name: "ProjectAudience", references: [id], fields: [projectId])
+  projectId    String             @unique
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+}
+
+model AudienceBrandVoice {
+  id              String     @id @default(cuid())
+  name            String
+  tone            String[]
+  personality     String[]
+  languageStyle   String[]
+  pointOfView     String[]
+  consistency     String[]
+  clarity         String[]
+  distinctiveness String[]
+  audienceFocused String[]
+  accessibility   String[]
+  adaptability    String[]
+  audiences       Audience[] @relation(name: "AudienceBrandVoice")
+  user            user       @relation(name: "ProjectAudienceBrandVoice", fields: [userId], references: [id])
+  userId          String    
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+}
+
+enum AudienceLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum AudienceTarget {
+  DEVELOPER
+  DESIGNER
+  MARKETER
+  PRODUCT_MANAGER
+  SALES
+  CUSTOMER_SUPPORT
+  HR
+  FINANCE
+  LEGAL
+  OTHER
 }
 
 model Refer {
-  id        String   @id @default(cuid())
+  id        String @id @default(cuid())
   content   String
   sourceUrl String
+
   project   Project  @relation(fields: [projectId], references: [id], name: "ProjectRefer")
   projectId String
   createdAt DateTime @default(now())

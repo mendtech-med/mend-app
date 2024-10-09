@@ -40,7 +40,7 @@ export class ProjectController {
         }
     }
 
-    async getProjects(req: Request, { params }: { params: { id: string } }) {
+    async getProjects(req: Request, { params }: { params: { projectId: string } }) {
         // const { userId: realId } = auth();
         // logger.info('Real User ID: ' + realId);
         const { userId } = auth();
@@ -50,10 +50,10 @@ export class ProjectController {
         }
 
         logger.info("get projects user : " + userId);
-        const { id }: Omit<GetProjectDto, "userId"> = params;
+        const { projectId } = params;
 
         try {
-            const projects = await this.getProjectUseCase.execute({ id, userId });
+            const projects = await this.getProjectUseCase.execute({ id: projectId, userId });
             return Response.json(projects);
         } catch (error: any) {
             return new Response(JSON.stringify({ message: error?.message ?? "An error occurred" }), { status: 400 });

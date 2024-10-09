@@ -5,7 +5,7 @@ import Header from "./_ui/global/header";
 
 function Home() {
   return (
-    <div className="w-screen min-h-screen box-border">
+    <div className="w-full min-h-screen box-border">
       <div className="px-12 pt-4">
         <Header />
         <div className="flex w-full space-x-4">

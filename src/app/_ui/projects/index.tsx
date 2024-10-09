@@ -4,20 +4,26 @@ import ProjectAdd from "./project-add";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import CreateBlogForm from "@/components/blog/create";
 
 interface IPorject {
     id: string;
-    name: string;
+    title: string;
 }
 
 
 const Projects = () => {
-
-
-
-
     const [projects, setProjects] = useState<IPorject[]>([]);
+    const [isCreateBlogModalOpen, setIsCreateBlogModalOpen] = useState<boolean>(false);
     const router = useRouter();
 
 
@@ -55,19 +61,20 @@ const Projects = () => {
                 reverseOrder={false}
             />
 
+            <Dialog open={isCreateBlogModalOpen} onOpenChange={() => setIsCreateBlogModalOpen(!isCreateBlogModalOpen)}>
+                <DialogContent className="sm:max-w-md bg-slate-50">
+                    <CreateBlogForm onClose={() => setIsCreateBlogModalOpen(false)} />
+                </DialogContent>
+            </Dialog>
+
+            <ProjectAdd onClick={() =>
+                setIsCreateBlogModalOpen(true)
+            } />
+
             {projects.map(project => (
                 <ProjectCard key={project.id} project={project} />
             ))}
 
-            {
-                projects.length === 0 && (
-                    <div className="w-full h-full flex justify-center items-center">
-                        <h1 className="text-foreground text-lg">No Projects Available</h1>
-                    </div>
-                )
-            }
-
-            <ProjectAdd onClick={() => router.push("/agent/create")} />
         </div>
     );
 }

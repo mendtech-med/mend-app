@@ -12,6 +12,6 @@ export interface IProjectRepository {
     lastUpdatedProjects({ userId, limit }: LastUpdatedProjectsDto): Promise<Project[]>;
     // checkers
     projectExists(id: Project["id"]): Promise<boolean>;
-    projectBelongsToOwner(projectId: Project["id"], ownerId: User["id"]): Promise<boolean>;
+    projectBelongsToOwner(projectId: Project["id"], ownerId: User["clerkId"]): Promise<boolean>;
     ownerProjectsCount(ownerId: User["id"]): Promise<number>;
 }

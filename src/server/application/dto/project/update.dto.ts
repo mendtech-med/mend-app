@@ -3,14 +3,16 @@ import { z } from 'zod';
 
 export interface UpdateProjectDto {
     id: string;
-    name?: string;
+    title?: string;
+    content?: string;
     ownerId: string;
 };
 
 
 export const UpdateProjectSchema = z.object({
     id: z.string(),
-    name: z.string().optional(), 
+    title: z.string().optional(), 
+    content: z.string().optional(),
     ownerId: z.string()
 });
 

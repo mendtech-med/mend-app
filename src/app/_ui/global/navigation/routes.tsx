@@ -1,34 +1,29 @@
-import { BsRobot } from "react-icons/bs";
-import { FiSettings } from "react-icons/fi";
-import { CgSupport } from "react-icons/cg";
-import { AiOutlineApi } from "react-icons/ai";
-
+import { RiApps2AddLine } from "react-icons/ri";
+import { RiChatSmile3Line } from "react-icons/ri";
+import { SiDarkreader } from "react-icons/si";
+import { HiOutlinePuzzlePiece } from "react-icons/hi2";
 
 
 const Routes = () => {
     const routes: Route[] = [
         {
-            name: 'My Agents',
-            path: '/agents',
-            icon: BsRobot
+            name: 'My Blogs',
+            path: '/',
+            icon: RiApps2AddLine
         },
         {
-            name: 'Settings',
-            path: '/settings',
-            icon: FiSettings
+            name: 'Chatbot',
+            path: '/chatbot',
+            icon: RiChatSmile3Line
         }, {
-            name: 'Support',
-            path: '/support',
-            icon: CgSupport
+            name: 'Reader',
+            path: '/reader',
+            icon: SiDarkreader
         }, {
-            name: 'API',
-            path: '/api',
-            icon: AiOutlineApi
-        }, {
-            name: 'Logout',
-            path: '/logout',
-            icon: 'logout'
-        },
+            name: 'Brand',
+            path: '/brand',
+            icon: HiOutlinePuzzlePiece
+        }
     ];
 
     return routes;

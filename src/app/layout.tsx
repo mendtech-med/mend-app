@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import Providers from "./providers";
 import "./globals.css";
+import Sidebar from "./_ui/global/navigation";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -28,11 +29,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <main className="bg-background min-h-screen w-screen">
-          <Providers >
-            {children}
-          </Providers>
-        </main>
+        <div className="flex">
+
+          <Sidebar />
+
+          <main className="bg-background min-h-screen w-full">
+            <Providers >
+              {children}
+            </Providers>
+          </main>
+        </div>
       </body>
     </html>
   );

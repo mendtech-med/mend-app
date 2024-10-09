@@ -2,7 +2,8 @@ import Project from "../entities/project.entity";
 
 interface UpdateProjectDto {
     id: string;
-    name?: string;
+    title?: string;
+    content?: string;
 };
 
 type CreateProjectDto = Omit<Project, "id" | "createdAt" | "updatedAt">;

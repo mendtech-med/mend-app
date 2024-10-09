@@ -10,11 +10,8 @@ const userName = "John";
 const Header = () => {
     return (
         <header className="flex w-full h-20 box-border  py-4" >
-            <div className="grid place-items-center w-52">
-                <RoundLogo />
-            </div>
-            <div className="h-full pl-5 items-center">
-                <h1 className="text-foreground font-normal pt-4">Hello {userName} 👋</h1>
+            <div className="h-full items-center">
+                <h1 className="text-foreground font-normal pt-4 m-0 text-md px-0">Hello {userName} 👋</h1>
             </div>
             <div className="flex-1">
 

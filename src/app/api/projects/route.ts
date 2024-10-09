@@ -25,7 +25,7 @@ const lastUpdatedProjectsUseCase = new LastUpdatedProjectsUseCase(agentService);
 const projectController = new ProjectController(getAgentUseCase, createAgentUseCase, updateAgentUseCase, deleteAgentUseCase, lastUpdatedProjectsUseCase);
 
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: { projectId: string } }) {
     return projectController.getProjects(req, { params });
 }
 

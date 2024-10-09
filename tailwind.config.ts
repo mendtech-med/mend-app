@@ -28,6 +28,7 @@ const config = {
         primary: {
           DEFAULT: "var(--primary)",
           foreground: "var(--primary-foreground)",
+          lowcontrast: "var(--primary-low)",
         },
         secondary: {
           DEFAULT: "var(--secondary))",

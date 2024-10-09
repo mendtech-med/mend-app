@@ -27,9 +27,9 @@ export default function RootLayout({
 }>) {
     return (
         <main className="bg-background min-h-screen w-full">
-            <div className="w-screen min-h-screen box-border">
-                <div className="px-12 pt-4">
-                    <Header />
+            <div className="w-full min-h-screen box-border">
+                <div className="px-2">
+                    {/* <Header />
                     <div className="pb-8 text-gray-500">
                         <Breadcrumb>
                             <BreadcrumbList>
@@ -42,7 +42,7 @@ export default function RootLayout({
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
-                    </div>
+                    </div> */}
                     <div className="">
                         {children}
                     </div>

@@ -7,17 +7,34 @@ class ProjectRepository implements IProjectRepository {
     async create(project: CreateProjectDto): Promise<Project> {
         const createdProject = await prisma.project.create({
             data: {
-                name: project.name,
+                title: project.title,
+                content: project.content,
                 owner: {
                     connect: {
                         clerkId: project.ownerId
                     }
+                },
+                audience: {
+                    create: {
+                        level: project.audience.level,
+                        target: project.audience.target,
+                        brandVoice: {
+                            connect: {
+                                id: project.audience.brandVoiceId
+                            }
+                        }
+                    }
                 }
+            },
+            include: {
+                audience: true
             }
         });
         return {
             id: createdProject.id,
-            name: createdProject.name,
+            title: createdProject.title,
+            content: createdProject.content,
+            audience: createdProject.audience,
             ownerId: createdProject.ownerId,
             createdAt: createdProject.createdAt,
             updatedAt: createdProject.updatedAt
@@ -41,13 +58,15 @@ class ProjectRepository implements IProjectRepository {
                 id: project.id
             },
             data: {
-                name: project.name,
+                title: project.title,
+                content: project.content,
             },
         });
 
         return {
             id: updatedProject.id,
-            name: updatedProject.name,
+            title: updatedProject.title,
+            content: updatedProject.content,
             createdAt: updatedProject.createdAt,
             updatedAt: updatedProject.updatedAt
         } as Project;
@@ -61,12 +80,19 @@ class ProjectRepository implements IProjectRepository {
                 owner: {
                     clerkId: userId
                 }
+            },
+            include: {
+                audience: true,
+                refers: true,
             }
         });
 
         return foundProjects.map(project => ({
             id: project.id,
-            name: project.name,
+            title: project.title,
+            content: project.content,
+            audience: project.audience,
+            refers: project.refers,
             ownerId: project.ownerId,
             createdAt: project.createdAt,
             updatedAt: project.updatedAt
@@ -81,7 +107,8 @@ class ProjectRepository implements IProjectRepository {
         });
         return {
             id: deletedProject.id,
-            name: deletedProject.name,
+            title: deletedProject.title,
+            content: deletedProject.content,
             ownerId: deletedProject.ownerId,
             createdAt: deletedProject.createdAt,
             updatedAt: deletedProject.updatedAt
@@ -102,7 +129,8 @@ class ProjectRepository implements IProjectRepository {
             // TODO: take: limit
         }).then(projects => projects.map(project => ({
             id: project.id,
-            name: project.name,
+            title: project.title,
+            content: project.content,
             ownerId: project.ownerId,
             createdAt: project.createdAt,
             updatedAt: project.updatedAt
@@ -124,6 +152,9 @@ class ProjectRepository implements IProjectRepository {
         const project = await prisma.project.findUnique({
             where: {
                 id: projectId
+            },
+            include: {
+                owner: true
             }
         });
 
@@ -131,7 +162,7 @@ class ProjectRepository implements IProjectRepository {
             return false;
         }
 
-        return project.ownerId === ownerId;
+        return project.owner.clerkId === ownerId;
     }
 
     async ownerProjectsCount(ownerId: string): Promise<number> {
