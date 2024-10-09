@@ -11,11 +11,15 @@ const blogService = new ProjectService(new ProjectRepository());
 
 
 const updateContent = async (content: string, blogId: string) => {
+
+    console.log('Updating content for content', content.length);
     const { userId } = auth();
 
     if (!userId) {
         throw new Error('User not authenticated');
     }
+
+    console.log('Updating content for blog', blogId);
 
     const blog = await blogService.update({
         content: content,

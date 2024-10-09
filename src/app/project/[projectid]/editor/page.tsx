@@ -52,7 +52,7 @@ export default function Editor() {
 
 
   return (
-    <div>
+    <div className='max-h-screen box-border pb-4'>
       {
         project ? <EditorView isLoading={isLoading} isNewBlog={isNewBlog} project={project[0]} /> : <div className='w-full h-screen bg-transparent grid place-items-center'>
           <Spinner />

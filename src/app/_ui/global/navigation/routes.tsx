@@ -2,27 +2,41 @@ import { RiApps2AddLine } from "react-icons/ri";
 import { RiChatSmile3Line } from "react-icons/ri";
 import { SiDarkreader } from "react-icons/si";
 import { HiOutlinePuzzlePiece } from "react-icons/hi2";
+import { GoArrowUpRight } from "react-icons/go";
+import { HiOutlineLockClosed } from "react-icons/hi2";
+import { LiaUserSolid } from "react-icons/lia";
+import { RxEyeClosed } from "react-icons/rx";
+import { RxDrawingPin } from "react-icons/rx";
+import { TbHelpSquareRounded } from "react-icons/tb";
 
 
 const Routes = () => {
     const routes: Route[] = [
         {
-            name: 'My Blogs',
+            name: 'Discuss',
             path: '/',
-            icon: RiApps2AddLine
+            icon: HiOutlineLockClosed
         },
         {
-            name: 'Chatbot',
+            name: 'Reader Setup',
             path: '/chatbot',
-            icon: RiChatSmile3Line
+            icon: LiaUserSolid 
         }, {
-            name: 'Reader',
+            name: 'Brand Setup',
             path: '/reader',
-            icon: SiDarkreader
+            icon: RxEyeClosed 
         }, {
-            name: 'Brand',
+            name: 'Trust Bucket',
             path: '/brand',
-            icon: HiOutlinePuzzlePiece
+            icon: RxDrawingPin
+        },{
+            name: 'Subscription',
+            path: '/subscription',
+            icon : GoArrowUpRight
+        },{
+            name: 'Help',
+            path: '/help',
+            icon: TbHelpSquareRounded
         }
     ];
 

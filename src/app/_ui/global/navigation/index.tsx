@@ -18,10 +18,10 @@ interface SidebarItemProps {
 const SidebarItem: React.FC<SidebarItemProps> = ({ name, path, icon: Icon, isActive }) => {
     return (
         <Link href={path}>
-            <div className={cn("flex items-center px-4 py-3 mb-2 text-slate-900 cursor-pointer hover:bg-[#6869AC]/20 transition-all duration-300 rounded-lg group", {
+            <div className={cn("flex items-center px-3 py-3 mb-2 text-slate-900 cursor-pointer hover:bg-[#6869AC]/20 transition-all duration-300 rounded-lg group", {
                 "bg-[#6869AC]/20": isActive
             })}>
-                <Icon className={cn("w-6 h-6 mr-3 group-hover:text-primary", {
+                <Icon size={20} className={cn("mr-3 group-hover:text-primary", {
                     "text-primary": isActive
                 })} />
                 <span className={cn("group-hover:text-primary", {
@@ -41,7 +41,7 @@ const Sidebar: React.FC = () => {
     const routes = Routes(); // Fetch routes dynamically
     const currentPath = usePathname();
     return (
-        <div className="flex flex-col justify-between h-screen w-72 px-6 bg-white shadow-lg">
+        <div className="flex flex-col justify-between h-screen w-80 px-6 bg-white shadow-lg">
             {/* Top Section */}
             <div>
                 <div className="flex items-center justify-center h-24">

@@ -24,7 +24,7 @@ const orderRefersByDate = (refers: IRefer[]) => {
     });
 }
 
-const ReferTooltip = ({ refers, isLoading , onSelection }: IReferTooltipProps) => {
+const ReferTooltip = ({ refers, isLoading, onSelection }: IReferTooltipProps) => {
 
     console.log("projets refers :", refers);
 
@@ -44,6 +44,9 @@ const ReferTooltip = ({ refers, isLoading , onSelection }: IReferTooltipProps) =
                             orderRefersByDate(refers).slice(0, 3).map(refer => (
                                 <ListItem key={refer.id} description={refer.content} title={refer.sourceUrl} onSelect={() => onSelection(refer.id)} />
                             ))
+                        }
+                        {
+                            refers.length == 0 && <div className="text-center text-gray-500">No refers found</div>
                         }
                     </div>)
             }

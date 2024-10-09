@@ -11,7 +11,7 @@ import Gapcursor from '@tiptap/extension-gapcursor'
 import Placeholder from '@tiptap/extension-placeholder'
 import { readStreamableValue } from 'ai/rsc';
 import { generate, generateNonStream, reWriteSelectionUsingRefer } from '@/actions/ai';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import EditorHeading from '@tiptap/extension-heading';
 
 import Document from '@tiptap/extension-document'
@@ -51,6 +51,9 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
     const [isReady, setIsReady] = useState(false);
     const [updatingContent, setUpdatingContent] = useState(false);
 
+    // update trigger 
+    const hasUnsavedChanges = useRef(false);
+
     const router = useRouter();
 
     console.log("[EDITOR] project : ", project);
@@ -88,6 +91,11 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
         enableContentCheck: false,
         shouldRerenderOnTransaction: true,
         immediatelyRender: true,
+        onUpdate: ({ editor }) => {
+            console.log("editor updated");
+            setContent(editor.getHTML());
+            hasUnsavedChanges.current = true;
+        },
     });
 
 
@@ -150,15 +158,37 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
         }
     }
 
+
+
     useEffect(() => {
-        if (project) {
+        const interval = setInterval(async () => {
+            // Check if there are unsaved changes before saving
+            if (hasUnsavedChanges.current) {
+                await updateContent(content, project.id).then(() => {
+                    console.log("[AUTO SAVE] Content updated successfully");
+                    toast.success("Content updated successfully");
+                }).catch(() => {
+                    setUpdatingContent(false);
+                    toast.error("Could not save the content");
+                });
+                hasUnsavedChanges.current = false;
+            }
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [content]);
+
+
+
+
+    useEffect(() => {
+        if (project && isNewBlog && !isReady) {
             handleGenerate();
         }
     }, [project]);
 
-    const handleStartEditing = () => {
+    const handleStartEditing = async () => {
         setUpdatingContent(true);
-        updateContent(content, project.id).then(() => {
+        await updateContent(content, project.id).then(() => {
             setUpdatingContent(false);
             toast.success("Content updated successfully");
             router.push(`/project/${project.id}/editor`);
@@ -179,37 +209,44 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
 
 
     return (
-        <div className="editor">
-            {(editor && !isNewBlog) && <MenuBar editor={editor} isRewriting={isRewriting} />}
-            {isNewBlog && <ContentViewMenu
-                title={project.title}
-                buttonIcon={RiQuillPenFill}
-                buttonLabel='Start Editing'
-                onButtonClick={() => handleStartEditing()}
-                buttonClassName='text-white'
-                isUpdating={updatingContent}
-            />}
-
-            {editor ? <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}  >
-                <div className="bubble-menu">
-                    <ReferTooltip refers={project.refers ? project.refers.reverse() : []} isLoading={isLoading} onSelection={(referId) => handleReWrite({ referId })} />
-                </div>
-            </BubbleMenu> : <div className='w-full h-full bg-transparent grid place-items-center'>
-                <Spinner />
+        <div className='flex flex-col h-screen pb-4 box-border'>
+            <div className='py-4     text-black font-bold text-lg'>
+                {
+                    project.title
+                }
             </div>
-            }
+            <div className="editor">
+                {(editor && !isNewBlog) && <MenuBar editor={editor} isRewriting={isRewriting} />}
+                {isNewBlog && <ContentViewMenu
+                    title={project.title}
+                    buttonIcon={RiQuillPenFill}
+                    buttonLabel='Start Editing'
+                    onButtonClick={handleStartEditing}
+                    buttonClassName='text-white'
+                    isUpdating={updatingContent}
+                />}
 
-            {
-                !isNewBlog ? <EditorContent className="editor__content" editor={editor} /> : (
-                    <>
-                        {
-                            !isReady ? <div className='w-full h-full bg-transparent grid place-items-center'> <ContentViewGenerating /> </div> : <ContentView content={content} />
-                        }
-                    </>
-                )
-            }
+                {editor ? <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}  >
+                    <div className="bubble-menu">
+                        <ReferTooltip refers={project.refers ? project.refers.reverse() : []} isLoading={isLoading} onSelection={(referId) => handleReWrite({ referId })} />
+                    </div>
+                </BubbleMenu> : <div className='w-full h-full bg-transparent grid place-items-center'>
+                    <Spinner />
+                </div>
+                }
 
-        </div >
+                {
+                    !isNewBlog ? <EditorContent className="editor__content" editor={editor} /> : (
+                        <>
+                            {
+                                !isReady ? <div className='w-full h-full bg-transparent grid place-items-center'> <ContentViewGenerating /> </div> : <ContentView content={content} />
+                            }
+                        </>
+                    )
+                }
+
+            </div >
+        </div>
     )
 }
 

@@ -66,9 +66,9 @@ const referPromptFormatted = ({ title, referContent, selection, targetAudience, 
   <content>${selection}</content>
 
   <instructions>
-    You're a marketing blog generator assistant. Your task is to rewrite the content using the reference.
-    
+    You're a marketing blog generator assistant. Your task is to rewrite the content (keeping the same lenght) using the reference.
     You strictly need to follow the below instructions while generating this section of the blog:
+    You keep the same lenght as content, generate the same content text lenght lenght (max 2 lines)
     1. The text needs to be generated for a targeted audience.
     2. The targeted audience for this will be from the ${targetAudience} industry.
     3. There can be multiple levels of audience. Example:
@@ -90,12 +90,13 @@ const referPromptFormatted = ({ title, referContent, selection, targetAudience, 
     7. The ideal length of a marketing text should be the same as content.
     8. The text content should be in the HTML format so that WYSIWYG editors can render the content.
     9. The output must not include the title “${title}” in the beginning.
-    10. The output must use appropriate html tags like: h1, h2, h3, p, ul, ol, li, a, img, blockquote, strong, em, code, pre, table, tr, th, td, hr, br.
+    10. The output must use appropriate html tags like: p, ul, ol, li, a, img, blockquote, strong, em, code, pre, table, tr, th, td, hr, br.
     11. The output must not have the following HTML tags: HTML, body.
     12. Start generating the output directly. Do not mention mention the instructions given to you or what you do with the content.
     13. You only rewrite the content given in the <content></content> tags above and not generating the entire blog.
     14. You start writing directly no intro or conclusion is needed.
     15. Just write what asked for, no introduction or conclusion is needed.
+    16. the generated text lenght should be the same as content, generate the same lenght  
   </instructions>
 `
 }
