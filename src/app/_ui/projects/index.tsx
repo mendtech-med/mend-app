@@ -85,47 +85,6 @@ const Projects = () => {
                     createdAt: project.createdAt.toLocaleDateString("en-US", { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
                 }} />
             ))}
-
-            <ProjectCard project={{
-                id: '1',
-                title: 'Project 1',
-                createdAt: '2021-09-20'
-            }} />
-
-            <ProjectCard project={{
-                id: '2',
-                title: 'Project 2',
-                createdAt: '2021-09-20'
-            }} />
-
-            <ProjectCard project={{
-                id: '3',
-                title: 'Project 3',
-                createdAt: '2021-09-20'
-            }} />
-
-            <ProjectCard project={{
-                id: '4',
-                title: 'Project 4',
-                createdAt: '2021-09-20'
-            }} />
-
-            <ProjectCard project={{
-                id: '5',
-                title: 'Project 5',
-                createdAt: '2021-09-20'
-            }} />
-
-            <ProjectCard project={{
-                id: '6',
-                title: 'Project 6',
-                createdAt: '2021-09-20'
-            }} />
-
-
-
-
-
         </div>
     );
 }
