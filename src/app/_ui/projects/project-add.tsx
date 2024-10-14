@@ -8,7 +8,7 @@ interface ProjectAddProps {
 
 const ProjectAdd = ({ onClick }: ProjectAddProps) => {
     return (
-        <div className="rounded-lg flex hover:bg-white/50 cursor-pointer flex-col items-center justify-center  space-y-4 w-64 h-36 border-dashed border-4 border-gray-400/20">
+        <div className="rounded-lg flex hover:bg-white/50 cursor-pointer flex-col items-center justify-center  space-y-4 w-52 h-36 border-dashed border-4 border-gray-400/20">
             <IconButton onClick={onClick} className="bg-primary text-white transition-all duration-300 shadow-main hover:scale-110" icon={<HiMiniPlus size={25} />} />
         </div>
     );

@@ -18,6 +18,7 @@ import CreateBlogForm from "@/components/blog/create";
 interface IPorject {
     id: string;
     title: string;
+    createdAt: Date;
 }
 
 
@@ -39,11 +40,22 @@ const Projects = () => {
                 toast.error('Error');
                 return;
             }
-            const data = await response.json() as IPorject[];
+            const data = await response.json() as {
+                id: string;
+                title: string;
+                createdAt: string;
+            }[];
+
+
+
             toast.success('Projects Loaded');
             console.log(data);
 
-            setProjects(data);
+            setProjects(data.map(project => ({
+                id: project.id,
+                title: project.title,
+                createdAt: new Date(project.createdAt)
+            })));
         }
 
         fetchTest();
@@ -56,11 +68,6 @@ const Projects = () => {
 
     return (
         <div className="flex flex-wrap gap-6 justify-start  h-full">
-            <Toaster
-                position="top-center"
-                reverseOrder={false}
-            />
-
             <Dialog open={isCreateBlogModalOpen} onOpenChange={() => setIsCreateBlogModalOpen(!isCreateBlogModalOpen)}>
                 <DialogContent className="sm:max-w-md bg-slate-50">
                     <CreateBlogForm onClose={() => setIsCreateBlogModalOpen(false)} />
@@ -72,8 +79,52 @@ const Projects = () => {
             } />
 
             {projects.map(project => (
-                <ProjectCard key={project.id} project={project} />
+                <ProjectCard key={project.id} project={{
+                    id: project.id,
+                    title: project.title,
+                    createdAt: project.createdAt.toLocaleDateString("en-US", { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
+                }} />
             ))}
+
+            <ProjectCard project={{
+                id: '1',
+                title: 'Project 1',
+                createdAt: '2021-09-20'
+            }} />
+
+            <ProjectCard project={{
+                id: '2',
+                title: 'Project 2',
+                createdAt: '2021-09-20'
+            }} />
+
+            <ProjectCard project={{
+                id: '3',
+                title: 'Project 3',
+                createdAt: '2021-09-20'
+            }} />
+
+            <ProjectCard project={{
+                id: '4',
+                title: 'Project 4',
+                createdAt: '2021-09-20'
+            }} />
+
+            <ProjectCard project={{
+                id: '5',
+                title: 'Project 5',
+                createdAt: '2021-09-20'
+            }} />
+
+            <ProjectCard project={{
+                id: '6',
+                title: 'Project 6',
+                createdAt: '2021-09-20'
+            }} />
+
+
+
+
 
         </div>
     );

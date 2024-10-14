@@ -45,43 +45,41 @@
 }
 
 
-Heading styles
 h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
-  margin-top: 0.5rem;
+h6,
+p
+{
+  margin: 0rem;
+  padding: 0rem;
+  padding-top: 0.08rem;
+  padding-bottom: 0.08rem;
   text-wrap: pretty;
 }
 
-h1,
-h2 {
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
 h1 {
-  font-size: 1.4rem;
-  font-weight: bold;
+  font-size: large;
+  font-weight: bolder !important;
 }
 
 h2 {
-  font-size: 1.2rem;
+  /* font-size: medium; */
+  font-weight: 700;
 }
 
 h3 {
-  font-size: 1.1rem;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
+  /* font-size: small; */
+  font-weight: 600;
 }
 
-h4,
-h5,
-h6 {
-  font-size: 1rem;
+p {
+  /* font-size: smaller; */
+  font-weight: 400;
 }
+
 
 
 * {

@@ -59,7 +59,7 @@ const TitleStep: React.FC<TitleStepProps> = ({
             type="text"
             value={data.title}
             onChange={(e) => updateFormData('title', e.target.value)}
-            placeholder='Enter your full name'
+            placeholder='e.g., How to build a website in 2024'
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm h-12 px-4"
           />
         </div>
