@@ -36,51 +36,35 @@ interface SidebarItemProps {
 
 
 
-interface ClickableSidebarItemProps {
-    name: string;
-    onClick: () => void;
-    icon: IconType;
-}
 
 const SidebarItem: React.FC<SidebarItemProps> = ({ name, path, icon: Icon, isActive }) => {
     return (
         <Link href={path}>
             <div className={cn("flex items-center px-3 py-3 mb-2 text-slate-900 cursor-pointer hover:bg-[#6869AC]/20 transition-all duration-300 rounded-lg group", {
-                "bg-[#6869AC]/20": isActive
+                "bg-[#6869AC]/20": isActive,
+                "text-white cursor-pointer bg-[#6869AC]": path === "/"
             })}>
                 <Icon size={20} className={cn("mr-3 group-hover:text-primary", {
-                    "text-primary": isActive
+                    "text-primary": isActive,
+                    "text-white  ": path === "/"
+
                 })} />
                 <span className={cn("group-hover:text-primary", {
-                    "text-primary": isActive
+                    "text-primary": isActive,
+                    "text-white ": path === "/"
+
                 })}>{name}</span>
                 <div className="flex-1 grid place-content-end">
                     <MdKeyboardArrowRight className={cn("group-hover:text-primary", {
-                        "text-primary": isActive
+                        "text-primary": isActive,
+                        "text-white  ": path === "/"
+
                     })} />
                 </div>
             </div>
         </Link>
     );
 };
-
-
-
-
-const ClickableSidebarItem: React.FC<ClickableSidebarItemProps> = ({ name, onClick, icon: Icon }) => {
-    return (
-        <div onClick={onClick}>
-            <div className={cn("flex items-center px-3 py-3 mb-2 text-white cursor-pointer bg-[#6869AC] transition-all duration-300 rounded-lg group")}>
-                <Icon size={20} className={cn("mr-3 text-white")} />
-                <span className={cn("text-white text-[14px] ")}>{name}</span>
-                <div className="flex-1 grid place-content-end">
-                    <MdKeyboardArrowRight className={cn("text-white")} />
-                </div>
-            </div>
-        </div>
-    );
-};
-
 
 
 const LogOut = () => {
@@ -111,7 +95,7 @@ const Sidebar = () => {
 
 
             <Dialog open={isCreateBlogModalOpen} onOpenChange={() => setIsCreateBlogModalOpen(!isCreateBlogModalOpen)}>
-                <DialogContent className="sm:max-w-md bg-slate-50">
+                <DialogContent className=" bg-slate-50">
                     <CreateBlogForm onClose={() => setIsCreateBlogModalOpen(false)} />
                 </DialogContent>
             </Dialog>
@@ -124,9 +108,7 @@ const Sidebar = () => {
                     <img src="/brand/logo.svg" alt="Logo" className="h-16" />
                 </div>
                 <nav className="mt-6">
-                    <ClickableSidebarItem name="Create New" onClick={() => {
-                        setIsCreateBlogModalOpen(true);
-                    }} icon={HiMiniPlus} />
+
                     {routes.map((route, index) => (
                         <SidebarItem
                             key={index}

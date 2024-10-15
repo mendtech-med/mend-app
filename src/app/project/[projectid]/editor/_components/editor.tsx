@@ -210,7 +210,7 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
 
     return (
         <div className='flex flex-col h-screen pb-4 box-border'>
-            <div className='py-4     text-black font-bold text-lg'>
+            <div className='py-4 text-black font-normal text-lg'>
                 {
                     project.title
                 }
