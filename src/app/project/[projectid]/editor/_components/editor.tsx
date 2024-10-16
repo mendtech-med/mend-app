@@ -114,7 +114,7 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
         await reWriteSelectionUsingRefer({
             brandVoice: project.audience.brandVoiceId,
             referContent: project.refers.find(refer => refer.id === referId)?.content ?? "",
-            selection: editor.state.selection.content.toString(),
+            selection: editor.state.selection.content().content.toString(),
             targetAudience: project.audience.target,
             targetAudienceLevel: project.audience.level,
             title: project.title,

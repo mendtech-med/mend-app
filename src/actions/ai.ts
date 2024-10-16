@@ -59,45 +59,47 @@ const promptFormatted = ({ title, targetAudience, targetAudienceLevel, brandVoic
 
 
 const referPromptFormatted = ({ title, referContent, selection, targetAudience, targetAudienceLevel, brandVoice }: { title: string, referContent: string, selection: string, targetAudience: string, targetAudienceLevel: string, brandVoice: string }) => {
-    return `  <task>
-    Rewrite the following content using the reference: “${referContent}”.
-  </task>
-    
-  <content>${selection}</content>
+    return `
+            Task : Rewrite the following SelectedText using the referContent.
+            
+            
+            referContent: ${referContent}
+            SelectedText: ${selection}
 
-  <instructions>
-    You're a marketing blog generator assistant. Your task is to rewrite the content (keeping the same lenght) using the reference.
-    You strictly need to follow the below instructions while generating this section of the blog:
-    You keep the same lenght as content, generate the same content text lenght lenght (max 2 lines)
-    1. The text needs to be generated for a targeted audience.
-    2. The targeted audience for this will be from the ${targetAudience} industry.
-    3. There can be multiple levels of audience. Example:
-        * 'Entry Level'
-        * 'Mid Level'
-        * 'Senior Level'
-        * 'Manager Level'
-        * 'Director Level'
-        * 'VP Level'
-        * 'Senior VP Level'
-        * 'Executive Level'
-        * 'C-Level'
-        * 'Owner'
-        * 'Other'
-    4. The average level of the targeted audience for this blog is “${targetAudienceLevel}”.
-    5. The blog should have certain attributes in its brand voice. The brand voice attributes are given in the <brandvoice></brandvoice> tags below:
-        <brandvoice>${brandVoice}</brandvoice>
-    6. The text should be have A Flesch reading ease score of at least 60-70.
-    7. The ideal length of a marketing text should be the same as content.
-    8. The text content should be in the HTML format so that WYSIWYG editors can render the content.
-    9. The output must not include the title “${title}” in the beginning.
-    10. The output must use appropriate html tags like: p, ul, ol, li, a, img, blockquote, strong, em, code, pre, table, tr, th, td, hr, br.
-    11. The output must not have the following HTML tags: HTML, body.
-    12. Start generating the output directly. Do not mention mention the instructions given to you or what you do with the content.
-    13. You only rewrite the content given in the <content></content> tags above and not generating the entire blog.
-    14. You start writing directly no intro or conclusion is needed.
-    15. Just write what asked for, no introduction or conclusion is needed.
-    16. the generated text lenght should be the same as content, generate the same lenght  
-  </instructions>
+
+            <instructions>
+            You're a financial news generator assistant. Your task is to use the 'SelectedText' and the 'referContent' to generate a connected text between them.
+            You strictly need to follow the below instructions while generating a connected text between the 'SelectedText' and the 'referContent':
+            Do everything step by step. This can be complicated.
+
+            The most important thing - Make sure you create a connection between the 'SelectedText' and the 'referContent' in your generated text. Try to keep the length of generated text similar to 'SelectedText'. Here are your step by step instructions -
+            1. The targeted audience will be from the ${targetAudience} industry.
+            2. There can be multiple levels of audience. Example:
+            * 'Entry Level'
+            * 'Mid Level'
+            * 'Senior Level'
+            * 'Manager Level'
+            * 'Director Level'
+            * 'VP Level'
+            * 'Senior VP Level'
+            * 'Executive Level'
+            * 'C-Level'
+            * 'Owner'
+            * 'Other'
+            3. The average level of the targeted audience for this blog is “${targetAudienceLevel}”.
+            4. The news should have certain attributes in its brand voice. The brand voice attributes are given in the <brandvoice></brandvoice> tags below:
+            <brandvoice>${brandVoice}</brandvoice>
+            5. The text should have A Flesch reading ease score of at least 60-70.
+            6. The ideal length of the generated text should be similar to 'SelectedText'. 
+            7. The text SelectedText should be in the HTML format so that WYSIWYG editors can render the SelectedText.
+            8. The output must not include the title “${title}” in the beginning.
+            9. The output must use appropriate html tags like: p, ul, ol, li, a, img, blockquote, strong, em, code, pre, table, tr, th, td, hr, br.
+            10. The output must not have the following HTML tags: HTML, body.
+            11. Start generating the output directly. Do not mention the instructions given to you or what you do with the SelectedText.
+            12. You only rewrite the SelectedText given in the <SelectedText></SelectedText> tags above and not generate the entire blog.
+            13. You start writing directly, no intro or conclusion is needed.
+            14. Recheck that you have followed all the instructions before giving the final results 
+            </instructions>
 `
 }
 
@@ -171,6 +173,9 @@ export async function generateNonStream({ title, targetAudience, targetAudienceL
 };
 
 export async function reWriteSelectionUsingRefer({ title, referContent, selection, targetAudience, targetAudienceLevel, brandVoice }: { title: string, referContent: string, selection: string, targetAudience: string, targetAudienceLevel: string, brandVoice: string }) {
+    
+    console.log("reWriteSelectionUsingRefer : ", selection);
+    
     const { text } = await generateText({
         model,
         prompt: promptFormater(referPromptFormatted({ title, referContent, selection, targetAudience, targetAudienceLevel, brandVoice })),

@@ -9,8 +9,7 @@ function Home() {
       <div className="px-12 pt-4 pb-10">
         <Header />
         <div className="flex w-full space-x-4">
-          <section className="h-full box-border flex-1">
-            <Title>My Projects</Title>
+          <section className="h-full box-border flex-1 pt-8">
             <Projects />
           </section>
         </div>

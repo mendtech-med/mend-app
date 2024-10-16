@@ -27,7 +27,7 @@ const Routes = () => {
             icon: RxEyeClosed
         }, {
             name: 'Trust Bucket',
-            path: '/brand',
+            path: '/trust-bucket',
             icon: RxDrawingPin
         }, {
             name: 'Subscription',

@@ -82,7 +82,9 @@ const Projects = () => {
                 <ProjectCard key={project.id} project={{
                     id: project.id,
                     title: project.title,
-                    createdAt: project.createdAt.toLocaleDateString("en-US", { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
+                    createdAt: project.createdAt.toLocaleDateString("en-US", {
+                        weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true
+                    })
                 }} />
             ))}
         </div>

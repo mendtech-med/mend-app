@@ -1,13 +1,15 @@
+// components/ProjectCardActions.tsx
 'use client';
-import React, { useState } from "react";
-import Link from "next/link";
-import { IconType } from "react-icons";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { RiLogoutCircleRLine } from "react-icons/ri";
-import { HiMiniPlus } from "react-icons/hi2";
-import toast, { Toaster } from "react-hot-toast";
+
+import React, { useState } from 'react';
+import { IconType } from 'react-icons';
+import { MdDeleteForever } from 'react-icons/md';
+import { IoArchive } from 'react-icons/io5';
+import { useMutation, useQueryClient } from 'react-query';
+import toast from 'react-hot-toast';
+import ProjectCardAction from './project-card-action';
+import Spinner from '..//spinner';
+import { MdCheck } from 'react-icons/md';
 import {
     Dialog,
     DialogContent,
@@ -16,56 +18,117 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
-import CreateBlogForm from "@/components/blog/create";
-import { MdDeleteForever } from "react-icons/md";
-import { IoArchive } from "react-icons/io5";
+} from '@/components/ui/dialog';
 
-
-interface SidebarItemProps {
-    name: string;
-    path: string;
-    icon: IconType;
-    isActive?: boolean;
+interface ProjectCardActionsProps {
+    projectId: string;
+    onArchive?: () => void; // Optional: Implement similarly
 }
 
+const ProjectCardActions: React.FC<ProjectCardActionsProps> = ({ projectId, onArchive }) => {
+    const queryClient = useQueryClient();
+    const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-interface ClickableSidebarItemProps {
-    name: string;
-    onClick: () => void;
-    icon: IconType;
-    color?: string;
-    size?: number;
-}
+    // Mutation for deleting the project
+    const deleteMutation = useMutation(
+        async () => {
+            const response = await fetch('/api/projects/', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify({ id: projectId }),
+            });
 
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to delete the project.');
+            }
 
-const ProjectCardAction: React.FC<ClickableSidebarItemProps> = ({ name, onClick, icon: Icon, color, size }) => {
-    return (
-        <div onClick={onClick}>
-            <div className={cn(`flex items-center px-3 h-10 py-2 bg-slate-50 text-black cursor-pointer transition-all duration-300 rounded-md hover:bg-slate-100`)}>
-                <span className={`text-black text-[14px] text-${color}`}
-                    style={{
-                        color: color
-                    }}
-                >{name}</span>
-                <div className="flex-1 grid place-content-end">
-                    <Icon size={size} className={`text-${color}`} style={{
-                        color: color
-                    }} />
-                </div>
-            </div>
-        </div>
+            return response.json();
+        },
+        {
+            onSuccess: () => {
+                toast.success('Project deleted successfully!');
+                // Invalidate and refetch queries related to projects if necessary
+                queryClient.invalidateQueries(['projects']);
+                setDeleteDialogOpen(false);
+            },
+            onError: (error: any) => {
+                toast.error(error.message || 'An error occurred while deleting the project.');
+            },
+        }
     );
-};
 
-const ProjectCardActions = () => {
+    // Handle Delete Click
+    const handleDelete = () => {
+        setDeleteDialogOpen(true);
+    };
 
+    // Confirm Delete
+    const confirmDelete = () => {
+        deleteMutation.mutate();
+    };
+
+
+    // Handle Archive Click (Optional)
+    const handleArchive = () => {
+        console.log('Archive clicked');
+    };
 
     return (
         <nav className="mb-2 space-y-2">
-            <h1 className="text-black text-[16px] font-semibold py-2 pb-0 px-2">Actions</h1>
-            <ProjectCardAction name="Delete" color='red' size={25} onClick={() => { }} icon={MdDeleteForever} />
-            <ProjectCardAction name="Archive" onClick={() => { }} size={20} icon={IoArchive} />
+            <h1 className="text-black text-[16px] font-semibold py-2 pb-0 px-2 m-0 p-0 leading-3">Actions</h1>
+
+            {/* Delete Action with Confirmation Dialog */}
+            <Dialog open={isDeleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+                <DialogTrigger asChild>
+                    <ProjectCardAction
+                        name="Delete"
+                        color="black"
+                        size={25}
+                        onClick={handleDelete}
+                        icon={MdDeleteForever}
+                        isLoading={deleteMutation.isLoading}
+                        isSuccess={deleteMutation.isSuccess}
+                    />
+                </DialogTrigger>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Confirm Deletion</DialogTitle>
+                        <DialogDescription>
+                            Are you sure you want to delete this project? This action cannot be undone.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <button
+                            onClick={() => setDeleteDialogOpen(false)}
+                            className="px-4 py-2 bg-gray-200 rounded-md mr-2"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={confirmDelete}
+                            className="px-4 py-2 bg-red-600 text-white rounded-md"
+                            disabled={deleteMutation.isLoading}
+                        >
+                            {deleteMutation.isLoading ? <Spinner size={16} /> : 'Delete'}
+                        </button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Archive Action (Optional) */}
+            <ProjectCardAction
+                name="Archive"
+                color="black"
+                size={20}
+                onClick={handleArchive}
+                icon={IoArchive}
+                isLoading={deleteMutation.isLoading}
+                isSuccess={deleteMutation.isSuccess}
+            />
         </nav>
     );
 };

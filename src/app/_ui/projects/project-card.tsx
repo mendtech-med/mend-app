@@ -41,7 +41,7 @@ const ProjectCard = ({ project }: { project: ProjectProps }) => {
                 </PopoverTrigger>
 
                 <PopoverContent className="w-52 px-2 py-1 border-none">
-                    <ProjectCardAction />
+                    <ProjectCardAction projectId={project.id} />
                 </PopoverContent>
             </Popover>
             <div className="w-full h-full box-border px-2 relative">

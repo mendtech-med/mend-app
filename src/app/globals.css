@@ -45,14 +45,13 @@
 }
 
 
-/* h1,
+h1,
 h2,
 h3,
 h4,
 h5,
 h6,
-p
-{
+p {
   margin: 0rem;
   padding: 0rem;
   padding-top: 0.08rem;
@@ -67,23 +66,23 @@ h1 {
 }
 
 h2 {
-  /* font-size: medium; */
-/* font-weight: 700;
-line-height: 4rem;
-font-size: 18px;
-} */
+  font-size: medium;
+  font-weight: 700;
+  line-height: 4rem;
+  font-size: 18px;
+}
 
-/* h3 {
-  /* font-size: small; */
-/* font-weight: 500;
-line-height: 3.5rem;
+h3 {
+  font-size: small;
+  font-weight: 500;
+  line-height: 3.5rem;
 }
 
 p {
-  /* font-size: smaller; */
-/* font-weight: 400;
-font-size: 14px;
-} */
+  font-size: smaller;
+  font-weight: 400;
+  font-size: 14px;
+}
 
 * {
   outline: none;

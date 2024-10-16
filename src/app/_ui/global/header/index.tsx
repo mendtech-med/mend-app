@@ -12,7 +12,7 @@ const Header = async () => {
     return (
         <header className="flex w-full h-20 box-border  py-4" >
             <div className="h-full items-center">
-                <h1 className="text-foreground font-normal pt-4 m-0 text-md px-0">Hello {user?.firstName} 👋</h1>
+                <p className="text-foreground font-normal pt-4 m-0 text-lg px-0">Hello {user?.firstName} 👋</p>
             </div>
             <div className="flex-1">
 

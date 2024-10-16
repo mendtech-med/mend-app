@@ -2,13 +2,13 @@ import { z } from 'zod';
 
 
 export interface GetReferDto {
-    projectId: string;
+    projectId?: string;
 };
 
 
 export const GetReferSchema = z.object({
     id: z.string().optional(),
-    projectId: z.string()
+    projectId: z.string().optional(),
 });
 
 

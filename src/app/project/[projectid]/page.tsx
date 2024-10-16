@@ -1,6 +1,6 @@
 "use client"
-import { Refer, columns } from "@/app/project/_ui/table/columns";
-import { DataTable } from "@/app/project/_ui/table/data-table";
+import { Refer, columns } from "@/app/trust-bucket/_ui/table/columns";
+import { DataTable } from "@/app/trust-bucket/_ui/table/data-table";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";

@@ -9,7 +9,7 @@ interface UpdateReferDto {
 type CreateReferDto = Omit<Refer, "id" | "createdAt" | "updatedAt">;
 
 type FindReferDto = {
-    projectId: string;
+    projectId?: string;
 };
 
 type DeleteReferDto = {

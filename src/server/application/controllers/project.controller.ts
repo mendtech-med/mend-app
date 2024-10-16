@@ -97,7 +97,7 @@ export class ProjectController {
 
         logger.info("get projects user : " + userId);
 
-        const { id }: DeleteProjectDto = req.body as unknown as DeleteProjectDto;
+        const { id }: DeleteProjectDto = await req.json() as unknown as DeleteProjectDto;
         try {
             const project = await this.deleteProjectUseCase.execute({ id, ownerId: userId });
             return Response.json(project);

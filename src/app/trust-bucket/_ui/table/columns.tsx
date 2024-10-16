@@ -32,13 +32,18 @@ export const columns: ColumnDef<Refer>[] = [{
 {
     accessorKey: "sourceUrl",
     header: "Source URL",
+    cell: ({ row }) => {
+        const content = row.getValue("sourceUrl") as string
+        return content.length > 50 ? content.slice(0, 50) + "..." : content
+    }
 },
 
 {
     accessorKey: "createdAt",
     header: "Created At",
     cell: ({ row }) => {
-        return row.getValue("createdAt")
+        const date = new Date(row.getValue("createdAt"))
+        return date.toLocaleDateString("en-US", { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
     }
 },
     // {

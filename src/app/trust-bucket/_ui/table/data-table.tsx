@@ -15,7 +15,7 @@ import {
 import { Button } from "@/components/ui/button"
 import * as React from "react"
 import { Input } from "@/components/ui/input"
-
+import { IoIosArrowDown } from "react-icons/io";
 
 import {
     Table,
@@ -32,12 +32,16 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { MdKeyboardArrowLeft } from "react-icons/md";
+
 
 
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
-    data: TData[]
+    data: TData[],
+    isLoading?: boolean
 }
 
 export function DataTable<TData, TValue>({
@@ -75,8 +79,8 @@ export function DataTable<TData, TValue>({
             <div className="flex items-center py-4">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
-                            Columns
+                        <Button variant="outline" className="ml-auto bg-white">
+                            <IoIosArrowDown className="mr-2" />Columns
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -102,14 +106,14 @@ export function DataTable<TData, TValue>({
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="rounded-md p-4 bg-white border-none px-8">
+            <div className="rounded-md overflow-hidden bg-white border-none">
                 <Table>
-                    <TableHeader>
+                    <TableHeader className="border-b-2 border-slate-100 bg-slate-50 rounded-t-2xl h-12 pl-4">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id} className="font-bold text-[17px]">
+                                        <TableHead key={header.id} className="font-normal text-[15px]">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -130,7 +134,7 @@ export function DataTable<TData, TValue>({
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id} className="max-w-1/3 w-1/3">
+                                        <TableCell key={cell.id} className="max-w-1/3 w-1/3 !min-w-1/3">
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
@@ -152,16 +156,18 @@ export function DataTable<TData, TValue>({
                     size="sm"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}
+                    className="bg-white"
                 >
-                    Previous
+                    <MdKeyboardArrowLeft className="mr-2" />Previous
                 </Button>
                 <Button
                     variant="outline"
                     size="sm"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}
+                    className="bg-white"
                 >
-                    Next
+                    Next <MdKeyboardArrowRight className="ml-2" />
                 </Button>
             </div>
         </div>
