@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ListItem from './item';
 
 
@@ -13,7 +13,8 @@ interface IRefer {
 interface IReferTooltipProps {
     refers: IRefer[],
     isLoading?: boolean,
-    onSelection: (ReferId: string) => void
+    onSelection: (ReferId: string) => void,
+    refetch: () => void
 }
 
 
@@ -24,9 +25,13 @@ const orderRefersByDate = (refers: IRefer[]) => {
     });
 }
 
-const ReferTooltip = ({ refers, isLoading, onSelection }: IReferTooltipProps) => {
 
-    console.log("projets refers :", refers);
+
+const ReferTooltip = ({ refers, isLoading, onSelection, refetch }: IReferTooltipProps) => {
+
+    useEffect(() => {
+        refetch();
+    }, []);
 
     return (
         <div className="relative mx-auto bg-white shadow-lg rounded-lg">

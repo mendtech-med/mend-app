@@ -11,7 +11,7 @@ import Gapcursor from '@tiptap/extension-gapcursor'
 import Placeholder from '@tiptap/extension-placeholder'
 import { readStreamableValue } from 'ai/rsc';
 import { generate, generateNonStream, reWriteSelectionUsingRefer } from '@/actions/ai';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import EditorHeading from '@tiptap/extension-heading';
 
 import Document from '@tiptap/extension-document'
@@ -45,7 +45,7 @@ interface IProject {
 }
 
 
-export default function EditorView({ project, isNewBlog, isLoading }: { project: IProject, isNewBlog: boolean, isLoading: boolean }) {
+export default function EditorView({ project, isNewBlog, isLoading, refetch }: { project: IProject, isNewBlog: boolean, isLoading: boolean, refetch: () => void }) {
     const [content, setContent] = useState(``);
     const [isRewriting, setIsRewriting] = useState(false);
     const [isReady, setIsReady] = useState(false);
@@ -59,6 +59,11 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
     console.log("[EDITOR] project : ", project);
 
     const editor = useEditor({
+        editorProps: {
+            attributes: {
+                class: 'prose prose-sm prose-editor:w-full min-w-full p-5',
+            },
+        },
         extensions: [
             StarterKit.configure(),
             Highlight,
@@ -111,10 +116,14 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
         setIsRewriting(true);
         editor.setEditable(false);
 
+
+        const { view, state } = editor
+        const { from, to } = view.state.selection
+        const selectedText = state.doc.textBetween(from, to, '')
         await reWriteSelectionUsingRefer({
             brandVoice: project.audience.brandVoiceId,
             referContent: project.refers.find(refer => refer.id === referId)?.content ?? "",
-            selection: editor.state.selection.content().content.toString(),
+            selection: selectedText,
             targetAudience: project.audience.target,
             targetAudienceLevel: project.audience.level,
             title: project.title,
@@ -129,12 +138,10 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
                 updateSelection: true,
             });
         });
-
-
     }
 
 
-    const handleGenerate = async () => {
+    const handleGenerate = useCallback(async () => {
         if (!project.audience) {
             return;
         }
@@ -156,7 +163,7 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
             console.log("error : ", e);
             toast.error("Something went wrong while generating the content");
         }
-    }
+    }, [project.audience, project.title]);
 
 
 
@@ -175,7 +182,7 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
             }
         }, 5000);
         return () => clearInterval(interval);
-    }, [content]);
+    }, [content, project.id]);
 
 
 
@@ -184,14 +191,18 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
         if (project && isNewBlog && !isReady) {
             handleGenerate();
         }
-    }, [project]);
+    }, [handleGenerate, isNewBlog, isReady, project]);
 
     const handleStartEditing = async () => {
         setUpdatingContent(true);
         await updateContent(content, project.id).then(() => {
             setUpdatingContent(false);
             toast.success("Content updated successfully");
-            router.push(`/project/${project.id}/editor`);
+            // const url = new URL(window.location.href);
+            // url.searchParams.delete("new");
+            // window.history.replaceState({}, document.title, url.pathname + url.search);
+            // window.location.reload();
+            window.location.replace(`/project/${project.id}/editor?new=false`);
         }).catch(() => {
             setUpdatingContent(false);
             toast.error("Something went wrong while updating the content");
@@ -212,7 +223,7 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
         <div className='flex flex-col h-screen pb-4 box-border'>
             <div className='py-4 text-black font-normal text-lg'>
                 {
-                    project.title
+                    !isNewBlog && project.title
                 }
             </div>
             <div className="editor">
@@ -226,9 +237,9 @@ export default function EditorView({ project, isNewBlog, isLoading }: { project:
                     isUpdating={updatingContent}
                 />}
 
-                {editor ? <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}  >
+                {editor ? <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}   >
                     <div className="bubble-menu">
-                        <ReferTooltip refers={project.refers ? project.refers.reverse() : []} isLoading={isLoading} onSelection={(referId) => handleReWrite({ referId })} />
+                        <ReferTooltip refers={project.refers ? project.refers.reverse() : []} isLoading={isLoading} onSelection={(referId) => handleReWrite({ referId })} refetch={refetch} />
                     </div>
                 </BubbleMenu> : <div className='w-full h-full bg-transparent grid place-items-center'>
                     <Spinner />

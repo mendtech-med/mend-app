@@ -5,7 +5,7 @@ import { IconType } from 'react-icons';
 
 interface HeaderProps {
     title: string;
-    buttonLabel: string;
+    buttonLabel: string;    
     onButtonClick: () => void;
     buttonIcon: IconType;
     buttonClassName?: string; // Optional prop for additional button styling

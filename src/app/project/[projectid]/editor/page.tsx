@@ -39,7 +39,7 @@ export default function Editor() {
 
 
 
-  const { data: project, error, isLoading, isError } = useQuery<IProject[]>('refers', fetchProject, {
+  const { data: project, error, isLoading, isError, refetch } = useQuery<IProject[]>('refers', fetchProject, {
     onError: (error) => {
       toast.error("Something went wrong while fetching the project");
     },
@@ -54,7 +54,7 @@ export default function Editor() {
   return (
     <div className='max-h-screen box-border pb-4'>
       {
-        project ? <EditorView isLoading={isLoading} isNewBlog={isNewBlog} project={project[0]} /> : <div className='w-full h-screen bg-transparent grid place-items-center'>
+        project ? <EditorView isLoading={isLoading} isNewBlog={isNewBlog} project={project[0]} refetch={refetch} /> : <div className='w-full h-screen bg-transparent grid place-items-center' >
           <Spinner />
         </div>
       }

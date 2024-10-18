@@ -40,7 +40,7 @@ export default function AgentPage({ params }: { params: { projectid: string } })
         return () => {
             console.log('Test Page Unmounted');
         }
-    }, []);
+    }, [params.projectid]);
 
     return (
         <div className="py-2 w-full">

@@ -5,7 +5,7 @@ import type { Editor } from '@tiptap/react'
 import { Fragment, useState } from 'react'
 import MenuItem from './MenuItem'
 import {
-  RiBold, RiItalic, RiStrikethrough, RiCodeView, RiMarkPenLine, RiDivideFill, RiH1, RiH2, RiParagraph, RiListUnordered, RiListOrdered, RiListCheck2, RiCodeBoxLine, RiDoubleQuotesL, RiSeparator, RiTextWrap, RiFormatClear, RiArrowGoBackLine, RiArrowGoForwardLine
+  RiBold, RiItalic, RiStrikethrough, RiCodeView, RiMarkPenLine, RiDivideFill, RiH1, RiH2, RiH3, RiParagraph, RiListUnordered, RiListOrdered, RiListCheck2, RiCodeBoxLine, RiDoubleQuotesL, RiSeparator, RiTextWrap, RiFormatClear, RiArrowGoBackLine, RiArrowGoForwardLine
 } from "@remixicon/react"
 import CharacterCount from '@tiptap/extension-character-count'
 
@@ -59,6 +59,12 @@ export default function MenuBar({ editor, isRewriting }: { editor: Editor, isRew
       title: 'Heading 2',
       action: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
       isActive: () => editor.isActive('heading', { level: 2 }),
+    },
+    {
+      icon: <RiH3 />,
+      title: 'Heading 3',
+      action: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+      isActive: () => editor.isActive('heading', { level: 3 }),
     },
     {
       icon: <RiParagraph />,
