@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";
+import { cn } from "@/lib/utils"
 
 
 
@@ -58,7 +59,7 @@ export function DataTable<TData, TValue>({
         React.useState<VisibilityState>({})
 
     const table = useReactTable({
-        data,
+        data: Array.isArray(data) ? data : [],
         columns,
         onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
@@ -134,7 +135,7 @@ export function DataTable<TData, TValue>({
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id} className="max-w-1/3 w-1/3 !min-w-1/3">
+                                        <TableCell key={cell.id} className={cn('!w-1/4 !min-w-1/4 !max-w-1/4')}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}

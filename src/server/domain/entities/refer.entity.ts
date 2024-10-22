@@ -2,7 +2,10 @@ interface Refer {
     id: string;
     content: string;
     sourceUrl: string;
-    projectId: string;
+    project: {
+        id: string;
+        title: string;
+    };
     createdAt: Date;
     updatedAt: Date;
 }

@@ -11,16 +11,19 @@ class ReferRepository implements IReferRepository {
                 sourceUrl: refer.sourceUrl,
                 project: {
                     connect: {
-                        id: refer.projectId
+                        id: refer.project.id
                     }
                 }
+            },
+            include :{
+                project: true
             }
         });
         return {
             id: createdRefer.id,
             content: createdRefer.content,
             sourceUrl: createdRefer.sourceUrl,
-            projectId: createdRefer.projectId,
+            project : createdRefer.project,
             createdAt: createdRefer.createdAt,
             updatedAt: createdRefer.updatedAt
         } as Refer;
@@ -46,13 +49,16 @@ class ReferRepository implements IReferRepository {
                 content: refer.content,
                 sourceUrl: refer.sourceUrl,
             },
+            include : {
+                project: true
+            }
         });
 
         return {
             id: updatedRefer.id,
             content: updatedRefer.content,
             sourceUrl: updatedRefer.sourceUrl,
-            projectId: updatedRefer.projectId,
+            project: updatedRefer.project,
             createdAt: updatedRefer.createdAt,
             updatedAt: updatedRefer.updatedAt
         } as Refer;
@@ -63,6 +69,9 @@ class ReferRepository implements IReferRepository {
         const foundRefers = await prisma.refer.findMany({
             where: {
                 projectId
+            },
+            include : {
+                project: true
             }
         });
 
@@ -70,7 +79,7 @@ class ReferRepository implements IReferRepository {
             id: refer.id,
             content: refer.content,
             sourceUrl: refer.sourceUrl,
-            projectId: refer.projectId,
+            project: refer.project,
             createdAt: refer.createdAt,
             updatedAt: refer.updatedAt
         } as Refer));
@@ -81,12 +90,15 @@ class ReferRepository implements IReferRepository {
             where: {
                 id
             },
+            include :{
+                project: true
+            }
         });
         return {
             id: deletedRefer.id,
             content: deletedRefer.content,
             sourceUrl: deletedRefer.sourceUrl,
-            projectId: deletedRefer.projectId,
+            project: deletedRefer.project,
             createdAt: deletedRefer.createdAt,
             updatedAt: deletedRefer.updatedAt
         } as Refer;

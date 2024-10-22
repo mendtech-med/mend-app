@@ -10,6 +10,10 @@ interface IRefer {
     id: string;
     content: string;
     sourceUrl: string;
+    project: {
+        id: string;
+        title: string;
+    }
     createdAt: string;
 }
 
@@ -81,7 +85,12 @@ export default function AgentPage() {
             {/* Data Table */}
             {!isLoading && !isError && refers && (
                 <div className="px-6">
-                    <DataTable columns={columns} data={refers} />
+                    <DataTable columns={columns} data={refers.map(project => {
+                        return {
+                            ...project,
+                            project: project.project.title
+                        }
+                    })} />
                 </div>
 
             )}

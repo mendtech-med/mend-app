@@ -17,14 +17,24 @@ export type Refer = {
     id: string
     content: string
     sourceUrl: string
+    project: string
     createdAt: string
 }
 
 export const columns: ColumnDef<Refer>[] = [{
+    accessorKey: "project",
+    header: "Project",
+    cell: ({ row }) => {
+        return <div className="font-medium rounded-lg flex-1  py-4">
+            {row.getValue("project")}
+        </div>
+    },
+},
+{
     accessorKey: "content",
     header: "Content",
     cell: ({ row }) => {
-        return <div className="font-medium rounded-lg flex-1 bg-gray-200 py-4">
+        return <div className="rounded-lg flex-1 bg-gray-200 py-4 font-medium">
             <textarea className="bg-transparent p-4 py-0 outline-none w-full h-full" value={row.getValue("content")} readOnly />
         </div>
     },
@@ -43,7 +53,9 @@ export const columns: ColumnDef<Refer>[] = [{
     header: "Created At",
     cell: ({ row }) => {
         const date = new Date(row.getValue("createdAt"))
-        return date.toLocaleDateString("en-US", { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
+        return date.toLocaleDateString("en-US", {
+            weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true
+        })
     }
 },
     // {

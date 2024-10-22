@@ -11,7 +11,7 @@ class ReferService {
     async create(refer: CreateReferDto): Promise<Refer> {
         return await this.referRepository.create({
             content: refer.content,
-            projectId: refer.projectId,
+            project: refer.project,
             sourceUrl: refer.sourceUrl
         });
     }

@@ -69,7 +69,7 @@ const Projects = () => {
     return (
         <div className="flex flex-wrap gap-6 justify-start  h-full">
             <Dialog open={isCreateBlogModalOpen} onOpenChange={() => setIsCreateBlogModalOpen(!isCreateBlogModalOpen)}>
-                <DialogContent className=" bg-slate-50">
+                <DialogContent className="min-w-[700px] bg-slate-50">
                     <CreateBlogForm onClose={() => setIsCreateBlogModalOpen(false)} />
                 </DialogContent>
             </Dialog>

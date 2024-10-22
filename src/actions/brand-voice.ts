@@ -13,7 +13,7 @@ const promptFormater = (prompt: string) => {
     return `\n\nHuman:\n  ${prompt}\n\nAssistant:\n`
 }
 
-const model = bedrock('anthropic.claude-3-sonnet-20240229-v1:0');
+const model = bedrock('anthropic.claude-3-haiku-20240307-v1:0');
 
 
 const brandVoicePrompt = (content: string) => {

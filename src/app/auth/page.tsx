@@ -21,7 +21,7 @@ const AuthHandler = () => {
                 redirectToSignIn();
             }
         }
-    }, [isLoaded, userId, sessionId, getToken, router]);
+    }, [isLoaded, userId, sessionId, getToken, router, redirectToSignIn]);
 
     return <div>Loading...</div>;
 };

@@ -1,6 +1,4 @@
 import { RiQuillPenFill } from "react-icons/ri";
-import ProjectThemeSvg from "./project-theme-svg";
-import Image from "next/image";
 import IconButton from "../common/button/icon-button";
 import { useRouter } from "next/navigation";
 import {
