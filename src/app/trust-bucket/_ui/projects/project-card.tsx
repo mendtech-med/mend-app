@@ -9,6 +9,7 @@ import {
 import { useState } from "react";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import ProjectCardAction from "./project-card-actions";
+import { PiTreeViewFill } from "react-icons/pi";
 
 interface ProjectProps {
     id: string;
@@ -33,8 +34,8 @@ const ProjectCard = ({ project }: { project: ProjectProps }) => {
                 </div>
             </div>
 
-            <IconButton className="absolute bottom-6 shadow-lg transition-all duration-150 right-4 group-hover:shadow-md group-hover:scale-110" icon={<RiQuillPenFill size={20} color="white" />} onClick={() => {
-                router.push(`/project/${project.id}/editor?new=false`);
+            <IconButton className="absolute bottom-6 shadow-lg transition-all duration-150 right-4 group-hover:shadow-md group-hover:scale-110" icon={<PiTreeViewFill  size={20} color="white" />} onClick={() => {
+                router.push(`/trust-bucket/refers?projectId=${project.id}`);
             }} />
 
         </div>
