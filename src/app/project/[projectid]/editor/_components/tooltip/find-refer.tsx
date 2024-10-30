@@ -11,7 +11,7 @@ const FindListItem = ({ title, onSelect }: { title: string, onSelect: () => void
                 </p>
             </div>
             <div className='w-5 h-full grid place-items-center'>
-                <MdOutlineKeyboardArrowRight className="text-gray-400 mt-3" />
+                <MdOutlineKeyboardArrowRight className="text-gray-400 " />
             </div>
         </div>
     );
