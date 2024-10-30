@@ -65,7 +65,7 @@ const promptFormatted = ({ title, targetAudience, targetAudienceLevel, brandVoic
 
 const referPromptFormatted = ({ title, referContent, selection, targetAudience, targetAudienceLevel, brandVoice }: { title: string, referContent: string, selection: string, targetAudience: string, targetAudienceLevel: string, brandVoice: string }) => {
     return `
-            Task : Rewrite the following SelectedText using the referContent, find the logic between the two.
+            Task : Rewrite the following SelectedText using the referContent.
             
             
             referContent: ${referContent}
@@ -73,11 +73,9 @@ const referPromptFormatted = ({ title, referContent, selection, targetAudience, 
 
 
             <instructions>
-            You're a financial news generator assistant. Your task is to use the 'SelectedText' and the 'referContent' to find the meaning of 'SelectedText' in context of the 'referContent'.
-            You strictly need to follow the below instructions while finding the meaning of 'SelectedText' in context of the 'referContent':
-            Do everything step by step. This can be complicated.
+            Create a single coherent sentence that logically combines the key information from both texts, maintaining cause and effect relationships where relevant. The combined text should flow naturally and avoid redundancy.
 
-            The most important thing - Make sure you understand the 'SelectedText' and the 'referContent'. Now, find and create the meaning of 'SelectedText' in context of the 'referContent'. Try to keep the length of the output no more than 200% of the 'SelectedText'. Here are your step by step instructions -
+            Try to keep the length of the output no more than 200% of the 'SelectedText'. Here are your step by step instructions -
             1. The targeted audience will be from the ${targetAudience} industry.
             3. The average level of the targeted audience for this news is “${targetAudienceLevel}”.
             4. The news should have certain attributes in its brand voice. The brand voice attributes are given in the <brandvoice></brandvoice> tags below:
