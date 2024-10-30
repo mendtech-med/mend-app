@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import toast from "react-hot-toast";
 import Spinner from "../../_ui/common/spinner";
 import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 
 
 interface IRefer {
@@ -20,7 +21,7 @@ interface IRefer {
 
 
 
-export default function AgentPage() {
+function AgentPage() {
     const searchParams = useSearchParams()
     const projectId = searchParams.get('projectId')
 
@@ -106,4 +107,15 @@ export default function AgentPage() {
             )}
         </div>
     );
+}
+
+
+export default function Page() {
+    return (
+        <Suspense fallback={<div className='w-full h-screen bg-transparent grid place-items-center'>
+            <Spinner />
+        </div>}>
+            <AgentPage />
+        </Suspense>
+    )
 }

@@ -59,6 +59,11 @@ const TitleStep: React.FC<TitleStepProps> = ({
             type="text"
             value={data.title}
             onChange={(e) => updateFormData('title', e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleNext();
+              }
+            }}
             placeholder='UK Budget 2024: budget will raise taxes by £40 billion'
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm h-12 px-4"
           />
@@ -88,7 +93,7 @@ const TitleStep: React.FC<TitleStepProps> = ({
             {
               !isSubmitting ? (
                 <>
-                  Create News
+                  Create
                 </>
               ) : (
                 <>

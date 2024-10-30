@@ -36,7 +36,7 @@ const BrandVoiceStep: React.FC<BrandVoiceStepProps> = ({
   const stepData = {
     title: `Brand Voice`,
     icon: AiOutlineSound,
-    brandVoiceSelectLabel: 'Select the brand voice for this blog',
+    brandVoiceSelectLabel: 'Select the brand voice for this news',
   };
 
   const Icon = stepData.icon;
@@ -62,7 +62,7 @@ const BrandVoiceStep: React.FC<BrandVoiceStepProps> = ({
     if (forceRefetch) {
       refetch();
     }
-  }, [forceRefetch]);
+  }, [forceRefetch, refetch]);
 
   // Optional: Refetch brand voices when a new brand voice is created
   // You can call refetch() in the onSuccess callback of the create mutation

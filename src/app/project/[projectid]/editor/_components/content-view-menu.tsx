@@ -23,7 +23,7 @@ const ContentViewMenu: React.FC<HeaderProps> = ({
     return (
         <header className="flex justify-between items-center  px-4 py-4 bg-white ">
             {/* Title */}
-            <h1 className="text-2xl font-normal text-gray-800 p-0 m-0">{title}</h1>
+            <p className="text-xl !font-normal text-gray-800 p-0 m-0">{title}</p>
 
             {/* Button */}
             <button
@@ -31,7 +31,7 @@ const ContentViewMenu: React.FC<HeaderProps> = ({
                 className={`flex items-center px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 ${buttonClassName}`}
             >
                 {
-                    isUpdating ? 'Updating...' : buttonLabel
+                    isUpdating ? 'Loading...' : buttonLabel
                 }
             </button>
         </header>

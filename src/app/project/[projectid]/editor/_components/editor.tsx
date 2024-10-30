@@ -76,7 +76,7 @@ export default function EditorView({ project, isNewBlog, isLoading, refetch }: {
     const editor = useEditor({
         editorProps: {
             attributes: {
-                class: 'prose prose-sm prose-editor:w-full min-w-full p-5',
+                class: 'prose prose-sm prose-editor:w-full min-w-full',
             },
         },
         extensions: [

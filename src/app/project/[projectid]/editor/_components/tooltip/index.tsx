@@ -129,7 +129,7 @@ const ReferTooltip = ({ refers, finds, isLoading, onSelection, refetch, isHiden 
                     <div className="px-4 py-2 bg-slate-50 rounded-b-lg text-center">
                         <button
                             onClick={() => setActiveView('initial')}
-                            className="text-blue-500 hover:underline"
+                            className="text-[#6869ac] hover:underline"
                         >
                             Back
                         </button>
