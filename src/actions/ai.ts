@@ -65,7 +65,7 @@ const promptFormatted = ({ title, targetAudience, targetAudienceLevel, brandVoic
 
 const referPromptFormatted = ({ title, referContent, selection, targetAudience, targetAudienceLevel, brandVoice }: { title: string, referContent: string, selection: string, targetAudience: string, targetAudienceLevel: string, brandVoice: string }) => {
     return `
-           Task : Rewrite the following SelectedText using the referContent, find the logic between the two.
+            Task : Rewrite the following SelectedText using the referContent, find the logic between the two.
             
             
             referContent: ${referContent}
@@ -77,13 +77,13 @@ const referPromptFormatted = ({ title, referContent, selection, targetAudience, 
             You strictly need to follow the below instructions while finding the meaning of 'SelectedText' in context of the 'referContent':
             Do everything step by step. This can be complicated.
 
-            The most important thing - Make sure you understand the 'SelectedText' and the 'referContent'. Now, find and create the meaning of 'SelectedText' in context of the 'referContent'. Try to keep the length of the output similar to 'SelectedText'. Here are your step by step instructions -
+            The most important thing - Make sure you understand the 'SelectedText' and the 'referContent'. Now, find and create the meaning of 'SelectedText' in context of the 'referContent'. Try to keep the length of the output no more than 200% of the 'SelectedText'. Here are your step by step instructions -
             1. The targeted audience will be from the ${targetAudience} industry.
             3. The average level of the targeted audience for this news is “${targetAudienceLevel}”.
             4. The news should have certain attributes in its brand voice. The brand voice attributes are given in the <brandvoice></brandvoice> tags below:
             <brandvoice>${brandVoice}</brandvoice>
             5. The text should have A Flesch reading ease score of at least 60-70.
-            6. The ideal length of the generated text should be similar to 'SelectedText'. 
+            6. The ideal length of the generated text should be no more than 200% of the 'SelectedText'.
             7. The text SelectedText should be in the HTML format so that WYSIWYG editors can render the SelectedText.
             8. The output must not include the title “${title}” in the beginning.
             9. The output must use appropriate html tags like: p, ul, ol, li, a, img, blockquote, strong, em, code, pre, table, tr, th, td, hr, br.
@@ -93,6 +93,7 @@ const referPromptFormatted = ({ title, referContent, selection, targetAudience, 
             13. You start writing directly, no intro or conclusion is needed.
             14. Recheck that you have followed all the instructions before giving the final results 
             </instructions>
+
             `
 }
 
