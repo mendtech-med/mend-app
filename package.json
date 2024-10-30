@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma db push --force-reset && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@ai-sdk/amazon-bedrock": "^0.0.29",
+    "@ai-sdk/azure": "^0.0.50",
+    "@ai-sdk/openai": "^0.0.70",
     "@anthropic-ai/bedrock-sdk": "^0.10.2",
     "@azure/cosmos": "^4.0.0",
     "@clerk/clerk-sdk-node": "^5.0.48",
@@ -36,7 +37,7 @@
     "@tiptap/extension-task-list": "^2.8.0",
     "@tiptap/react": "^2.8.0",
     "@tiptap/starter-kit": "^2.8.0",
-    "ai": "^3.4.9",
+    "ai": "^3.4.27",
     "applicationinsights": "^3.2.1",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
@@ -64,7 +65,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^20.17.2",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",

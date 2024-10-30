@@ -6,7 +6,11 @@ interface UpdateReferDto {
     projectId: string;
 };
 
-type CreateReferDto = Omit<Refer, "id" | "createdAt" | "updatedAt">;
+type CreateReferDto = {
+    content: string;
+    sourceUrl: string;
+    projectId: string;
+};
 
 type FindReferDto = {
     projectId?: string;

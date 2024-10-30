@@ -1,15 +1,19 @@
 'use server';
-import { bedrock } from '@/server/infrastructure/aws/bedrock.infra';
+import { azureOpenai } from '@/server/infrastructure/azure/openai.infra';
 import { streamText } from 'ai';
 import { createStreamableValue } from 'ai/rsc';
 import { generateText } from 'ai';
 import BrandVoiceService from '@/server/domain/services/brand-voice.service';
 import BrandVoiceRepository from '@/server/repositories/brand-voice.repository';
 import { auth } from '@clerk/nextjs/server'
+import { any } from 'zod';
 
 const brandVoiceService = new BrandVoiceService(new BrandVoiceRepository());
 
-const model = bedrock('anthropic.claude-3-sonnet-20240229-v1:0');
+
+const model  = azureOpenai("gpt-4o");
+
+
 
 const promptFormater = (prompt: string) => {
     return `\n\nHuman:\n  ${prompt}\n\nAssistant:\n`
@@ -19,7 +23,8 @@ const promptFormater = (prompt: string) => {
 
 
 
-const promptFormatted = ({ title, targetAudience, targetAudienceLevel, brandVoice }: { title: string, targetAudience: string, targetAudienceLevel: string, brandVoice: any }) => {
+const promptFormatted = ({ title, targetAudience, targetAudienceLevel, brandVoice }: 
+    { title: string, targetAudience: string, targetAudienceLevel: string, brandVoice: any }) => {
     return `  <task>
     Generate a blog on the following topic: “${title}”.
   </task>
@@ -122,13 +127,11 @@ export async function generate({ title, targetAudience, targetAudienceLevel, bra
 
     (async () => {
         const { textStream } = await streamText({
-            model,
+            model : model,
             prompt: promptFormater(promptFormatted({ title, targetAudience, targetAudienceLevel, brandVoice })),
             maxTokens: 2048,
             temperature: 0.5,
-            topK: 250,
             topP: 1,
-            stopSequences: ['\\n\\nHuman:'],
         });
 
         for await (const delta of textStream) {
@@ -164,9 +167,7 @@ export async function generateNonStream({ title, targetAudience, targetAudienceL
         prompt: promptFormater(promptFormatted({ title, targetAudience, targetAudienceLevel, brandVoice: JSON.stringify(brandVoice) })),
         maxTokens: 2048,
         temperature: 0.5,
-        topK: 250,
         topP: 1,
-        stopSequences: ['\\n\\nHuman:'],
     });
 
     return { text };
@@ -181,10 +182,7 @@ export async function reWriteSelectionUsingRefer({ title, referContent, selectio
         prompt: promptFormater(referPromptFormatted({ title, referContent, selection, targetAudience, targetAudienceLevel, brandVoice })),
         maxTokens: 2048,
         temperature: 0.5,
-        topK: 250,
         topP: 1,
-        stopSequences: ['\\n\\nHuman:'],
-
     });
 
     return { text };

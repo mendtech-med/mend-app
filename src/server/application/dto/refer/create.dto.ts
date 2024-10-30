@@ -3,10 +3,7 @@ import { z } from 'zod';
 export interface CreateReferDto {
     content: string;
     sourceUrl: string;
-    project: {
-        id: string;
-        title: string;
-    };
+    projectId: string;
 };
 
 

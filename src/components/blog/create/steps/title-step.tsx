@@ -27,7 +27,7 @@ const TitleStep: React.FC<TitleStepProps> = ({
   isSubmitting
 }) => {
   const stepData = {
-    title: `Blog Title`,
+    title: `News Title`,
     icon: IoDocumentTextOutline,
     blogTitleLabel: 'Enter the title of the blog',
   };

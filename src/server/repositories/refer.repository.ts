@@ -11,11 +11,11 @@ class ReferRepository implements IReferRepository {
                 sourceUrl: refer.sourceUrl,
                 project: {
                     connect: {
-                        id: refer.project.id
+                        id: refer.projectId
                     }
                 }
             },
-            include :{
+            include: {
                 project: true
             }
         });
@@ -23,7 +23,7 @@ class ReferRepository implements IReferRepository {
             id: createdRefer.id,
             content: createdRefer.content,
             sourceUrl: createdRefer.sourceUrl,
-            project : createdRefer.project,
+            project: createdRefer.project,
             createdAt: createdRefer.createdAt,
             updatedAt: createdRefer.updatedAt
         } as Refer;
@@ -49,7 +49,7 @@ class ReferRepository implements IReferRepository {
                 content: refer.content,
                 sourceUrl: refer.sourceUrl,
             },
-            include : {
+            include: {
                 project: true
             }
         });
@@ -70,7 +70,7 @@ class ReferRepository implements IReferRepository {
             where: {
                 projectId
             },
-            include : {
+            include: {
                 project: true
             }
         });
@@ -90,7 +90,7 @@ class ReferRepository implements IReferRepository {
             where: {
                 id
             },
-            include :{
+            include: {
                 project: true
             }
         });

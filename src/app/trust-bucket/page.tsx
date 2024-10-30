@@ -89,6 +89,12 @@ export default function AgentPage() {
                         return {
                             ...project,
                             project: project.project.title
+                        } as {
+                            id: string
+                            content: string
+                            sourceUrl: string
+                            project: string
+                            createdAt: string
                         }
                     })} />
                 </div>

@@ -1,17 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ArrowUpDown } from "lucide-react"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+
 
 export type Refer = {
     id: string
@@ -44,7 +34,9 @@ export const columns: ColumnDef<Refer>[] = [{
     header: "Source URL",
     cell: ({ row }) => {
         const content = row.getValue("sourceUrl") as string
-        return content.length > 50 ? content.slice(0, 50) + "..." : content
+        return <a href={content} target="_blank" rel="noreferrer" className="text-primary underline">
+            {content.length > 50 ? content.slice(0, 50) + "..." : content}
+        </a>
     }
 },
 

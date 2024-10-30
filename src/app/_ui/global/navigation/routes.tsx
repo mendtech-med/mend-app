@@ -22,8 +22,8 @@ const Routes = () => {
             path: '/chatbot',
             icon: LiaUserSolid
         }, {
-            name: 'Brand Setup',
-            path: '/reader',
+            name: 'Category Setup',
+            path: '/category-setup',
             icon: RxEyeClosed
         }, {
             name: 'Trust Bucket',

@@ -33,6 +33,7 @@ export class ReferController {
             const refer = await this.createReferUseCase.execute(createReferDto);
             return Response.json(refer);
         } catch (error: any) {
+            logger.error("Error creating refer", error);
             return new Response(JSON.stringify({ message: error?.message ?? "An error occurred" }), { status: 400 });
         }
     }

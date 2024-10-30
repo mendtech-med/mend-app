@@ -1,11 +1,12 @@
 'use server';
-import { bedrock } from '@/server/infrastructure/aws/bedrock.infra';
+import { azureOpenai } from '@/server/infrastructure/azure/openai.infra';
 import { streamText } from 'ai';
 import { createStreamableValue } from 'ai/rsc';
 import { generateText } from 'ai';
 import BrandVoiceService from '@/server/domain/services/brand-voice.service';
 import BrandVoiceRepository from '@/server/repositories/brand-voice.repository';
 import { auth } from '@clerk/nextjs/server'
+import { cleanAndParseJson } from '@/utils/json';
 
 const brandVoiceService = new BrandVoiceService(new BrandVoiceRepository());
 
@@ -13,7 +14,9 @@ const promptFormater = (prompt: string) => {
     return `\n\nHuman:\n  ${prompt}\n\nAssistant:\n`
 }
 
-const model = bedrock('anthropic.claude-3-haiku-20240307-v1:0');
+const model = azureOpenai('gpt-4o', {
+    structuredOutputs: true
+}) as any;1
 
 
 const brandVoicePrompt = (content: string) => {
@@ -82,15 +85,14 @@ export async function generateBrandVoiceNonStream({ name, content }: { name: str
         prompt: promptFormater(prompt),
         maxTokens: 2048,
         temperature: 0.5,
-        topK: 250,
         topP: 1,
-        stopSequences: ['\\n\\nHuman:'],
+        stopSequences: ['\n\n Human:'],
     });
 
     if (text !== '') {
         try {
-            const brandVoice = JSON.parse(text);
-            console.log("generated brandVoice : ", JSON.stringify(brandVoice));
+            console.log("generated brandVoice : ", text);
+            const brandVoice = cleanAndParseJson(text);
 
             await brandVoiceService.create({
                 name,
