@@ -8,7 +8,7 @@ import { HiMiniPlus } from "react-icons/hi2";
 const Routes = () => {
     const routes: Route[] = [
         {
-            name: 'Create New',
+            name: 'Create',
             path: '/',
             icon: HiMiniPlus
         },

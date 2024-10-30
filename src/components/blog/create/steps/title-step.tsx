@@ -29,7 +29,7 @@ const TitleStep: React.FC<TitleStepProps> = ({
   const stepData = {
     title: `News Title`,
     icon: IoDocumentTextOutline,
-    blogTitleLabel: 'Enter the title of the blog',
+    blogTitleLabel: 'Enter the title of the news',
   };
 
   const Icon = stepData.icon;
@@ -59,7 +59,7 @@ const TitleStep: React.FC<TitleStepProps> = ({
             type="text"
             value={data.title}
             onChange={(e) => updateFormData('title', e.target.value)}
-            placeholder='e.g., How to build a website in 2024'
+            placeholder='UK Budget 2024: budget will raise taxes by £40 billion'
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm h-12 px-4"
           />
         </div>
@@ -88,11 +88,11 @@ const TitleStep: React.FC<TitleStepProps> = ({
             {
               !isSubmitting ? (
                 <>
-                  Generate Blog
+                  Create News
                 </>
               ) : (
                 <>
-                  Generate...
+                  Creating ...
                 </>
               )
             }

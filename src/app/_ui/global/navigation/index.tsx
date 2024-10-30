@@ -105,7 +105,7 @@ const Sidebar = () => {
             <div>
                 <div className="flex items-center justify-center h-24">
                     {/* Replace 'your-logo.png' with your actual logo file */}
-                    <img src="/brand/logo.svg" alt="Logo" className="h-10 px-6" />
+                    <img src="/brand/logo.svg" alt="Logo" className="h-10 pr-12" />
                 </div>
                 <nav className="mt-6">
 

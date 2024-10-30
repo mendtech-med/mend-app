@@ -65,7 +65,7 @@ const promptFormatted = ({ title, targetAudience, targetAudienceLevel, brandVoic
 
 const referPromptFormatted = ({ title, referContent, selection, targetAudience, targetAudienceLevel, brandVoice }: { title: string, referContent: string, selection: string, targetAudience: string, targetAudienceLevel: string, brandVoice: string }) => {
     return `
-            Task : Rewrite the following SelectedText using the referContent.
+            Task : Rewrite the following SelectedText using the referContent, find the logic between the two.
             
             
             referContent: ${referContent}
@@ -105,6 +105,18 @@ const referPromptFormatted = ({ title, referContent, selection, targetAudience, 
             13. You start writing directly, no intro or conclusion is needed.
             14. Recheck that you have followed all the instructions before giving the final results 
             </instructions>
+
+
+            example 1 :
+            SelectedText: <p>Mohamed has school tomorrow morning at 8:00 am.</p>
+            referContent: <p>At 8:00 am, Mohamed's country is expecting a heavy cyclone.</p>
+            ==> The generated text should be something like : Mohamed has school tomorrow but there is a heavy cyclone expected in his country at the same time, so he might not be able to go to school.
+
+            example 2 :
+            SelectedText: <p>UK is going to leave the European Union.</p>
+            referContent: <p>France and Germany are planning to convince UK to stay in the European Union.</p>
+            ==> The generated text should be something like : there is a chance that UK might not leave the European Union as France and Germany are planning to convince UK to stay in the European Union.
+
 `
 }
 
