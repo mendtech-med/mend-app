@@ -1,5 +1,4 @@
 "use client";
-
 import { columns } from "../_ui/table/columns";
 import { DataTable } from "../_ui/table/data-table";
 import { useQuery } from "react-query";
