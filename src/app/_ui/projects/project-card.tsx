@@ -20,9 +20,9 @@ const ProjectCard = ({ project }: { project: ProjectProps }) => {
     const router = useRouter();
     const [isActionsPopoverOpen, setIsActionsPopoverOpen] = useState<boolean>(false);
     return (
-
-        <div className="rounded-lg hover:shadow-main shadow-main group relative w-60 h-36 box-border p-4 bg-white shadow-slate-300 overflow-hidden">
-
+        <div className="rounded-lg hover:shadow-main shadow-main group relative w-60 h-36 box-border p-4 bg-white shadow-slate-300 overflow-hidden" onClick={() => {
+            router.push(`/trust-bucket/refers?projectId=${project.id}`);
+        }}>
 
             <Popover open={isActionsPopoverOpen} onOpenChange={() => setIsActionsPopoverOpen(!isActionsPopoverOpen)}>
                 <PopoverTrigger className="absolute top-2 right-2 z-100" asChild>
@@ -44,7 +44,7 @@ const ProjectCard = ({ project }: { project: ProjectProps }) => {
             </Popover>
             <div className="w-full h-full box-border px-2 relative">
                 <div className=" items-center justify-center pt-6">
-                    <h1 className="text-foreground font-bold text-left !text-[16px] w-full text-lg m-0 p-0">{
+                    <h1 className="text-foreground group-hover:text-primary font-normal text-left !text-[16px] w-full text-lg m-0 p-0">{
                         project.title.length > 30 ? project.title.slice(0, 30) + '...' : project.title
                     }</h1>
                 </div>
@@ -53,9 +53,7 @@ const ProjectCard = ({ project }: { project: ProjectProps }) => {
                 </div>
             </div>
 
-            <IconButton className="absolute bottom-6 shadow-lg transition-all duration-150 right-4 group-hover:shadow-md group-hover:scale-110" icon={<RiQuillPenFill size={20} color="white" />} onClick={() => {
-                router.push(`/project/${project.id}/editor?new=false`);
-            }} />
+
 
         </div>
     );

@@ -22,10 +22,12 @@ const ProjectCard = ({ project }: { project: ProjectProps }) => {
     const [isActionsPopoverOpen, setIsActionsPopoverOpen] = useState<boolean>(false);
     return (
 
-        <div className="rounded-lg hover:shadow-main shadow-main group relative w-60 h-36 box-border p-4 bg-white shadow-slate-300 overflow-hidden">
+        <div className="rounded-lg hover:shadow-main shadow-main group relative w-60 h-36 box-border p-4 bg-white shadow-slate-300 overflow-hidden" onClick={() => {
+            router.push(`/trust-bucket/refers?projectId=${project.id}`);
+        }}>
             <div className="w-full h-full box-border px-2 relative">
                 <div className=" items-center justify-center pt-6">
-                    <h1 className="text-foreground font-bold text-left !text-[16px] w-full text-lg m-0 p-0">{
+                    <h1 className="text-foreground font-normal text-left group-hover:text-primary !text-[16px] w-full text-lg m-0 p-0">{
                         project.title.length > 30 ? project.title.slice(0, 30) + '...' : project.title
                     }</h1>
                 </div>
@@ -33,10 +35,6 @@ const ProjectCard = ({ project }: { project: ProjectProps }) => {
                     <p className="font-normal w-full text-left text-[12px] text-gray-400 m-0 p-0">{project.createdAt}</p>
                 </div>
             </div>
-
-            <IconButton className="absolute bottom-6 shadow-lg transition-all duration-150 right-4 group-hover:shadow-md group-hover:scale-110" icon={<PiTreeViewFill  size={20} color="white" />} onClick={() => {
-                router.push(`/trust-bucket/refers?projectId=${project.id}`);
-            }} />
 
         </div>
     );
