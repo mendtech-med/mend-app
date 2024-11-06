@@ -67,11 +67,11 @@ const PreferencesStep: React.FC = () => {
                   </option>
                 ))}
               </select>
-              {errors.preferences && errors.preferences[pref.key] && (
+              {/* {errors.preferences && errors.preferences[pref.key] && (
                 <p className="text-red-500 text-sm mt-1">
                   {errors.preferences[pref.key]?.message}
                 </p>
-              )}
+              )} */}
             </div>
           ))
         )}

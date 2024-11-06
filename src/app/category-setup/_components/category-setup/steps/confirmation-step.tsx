@@ -34,7 +34,7 @@ const ConfirmationStep: React.FC = () => {
                     <ul className="list-disc list-inside">
                         {Object.entries(preferences).map(([key, value]) => (
                             <li key={key} className="text-[14px]">
-                                <strong className="text-[14px] font-medium">{key}:</strong> {value}
+                                <strong className="text-[14px] font-medium">{key}:</strong> {value as string}
                             </li>
                         ))}
                     </ul>

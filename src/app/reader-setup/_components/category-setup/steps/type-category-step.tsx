@@ -53,9 +53,9 @@ const TypeCategoryStep: React.FC = () => {
               </option>
             ))}
           </select>
-          {errors.type && (
+          {/* {errors.type && (
             <p className="text-red-500 text-sm mt-1">{errors.type.message}</p>
-          )}
+          )} */}
         </div>
 
         {/* Category Select */}
@@ -79,9 +79,9 @@ const TypeCategoryStep: React.FC = () => {
                 </option>
               ))}
           </select>
-          {errors.category && (
+          {/* {errors.category && (
             <p className="text-red-500 text-sm mt-1">{errors.category.message}</p>
-          )}
+          )} */}
         </div>
       </div>
     </>
