@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
   // url = env("DATABASE_URL")
 }
@@ -18,8 +18,55 @@ model user {
   lastName     String?
   projects     Project[]            @relation(name: "ProjectUser")
   brandVoices  AudienceBrandVoice[] @relation(name: "ProjectAudienceBrandVoice")
+  categories   Category[]           @relation(name: "CategoryUser")
+  readers      Reader[]             @relation(name: "ReaderUser")
   createdAt    DateTime             @default(now())
   updatedAt    DateTime             @updatedAt
+}
+
+// setup category 
+model Category {
+  id        String         @id @default(cuid())
+  type      String
+  category  String
+  items     CategoryItem[] @relation(name: "CategoryItem")
+  owner     user           @relation(name: "CategoryUser", fields: [ownerId], references: [id])
+  ownerId   String
+  audience  Audience[]     @relation(name: "CategoryAudience")
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model CategoryItem {
+  id         String   @id @default(cuid())
+  name       String
+  selections String[]
+  category   Category @relation(name: "CategoryItem", fields: [categoryId], references: [id])
+  categoryId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Reader {
+  id        String       @id @default(cuid())
+  type      String
+  category  String
+  items     ReaderItem[] @relation(name: "ReaderItem")
+  owner     user         @relation(name: "ReaderUser", fields: [ownerId], references: [id])
+  ownerId   String
+  audience  Audience[]   @relation(name: "ReaderAudience")
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model ReaderItem {
+  id         String   @id @default(cuid())
+  name       String
+  selections String[]
+  category   Reader   @relation(name: "ReaderItem", fields: [categoryId], references: [id])
+  categoryId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 // add the user later 
@@ -39,6 +86,10 @@ model Audience {
   id           String             @id @default(cuid())
   target       AudienceTarget
   level        AudienceLevel
+  category     Category?           @relation(name: "CategoryAudience", fields: [categoryId], references: [id])
+  categoryId   String?             @unique
+  readers      Reader?             @relation(name: "ReaderAudience", fields: [readerId], references: [id])
+  readerId     String?
   brandVoice   AudienceBrandVoice @relation(name: "AudienceBrandVoice", fields: [brandVoiceId], references: [id])
   brandVoiceId String
   project      Project            @relation(name: "ProjectAudience", references: [id], fields: [projectId], onDelete: Cascade)
@@ -62,7 +113,7 @@ model AudienceBrandVoice {
   adaptability    String[]
   audiences       Audience[] @relation(name: "AudienceBrandVoice")
   user            user       @relation(name: "ProjectAudienceBrandVoice", fields: [userId], references: [id])
-  userId          String    
+  userId          String
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
 }

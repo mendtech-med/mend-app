@@ -1,4 +1,3 @@
-import Refer from "../entities/refer.entity";
 interface UpdateReferDto {
     id: string;
     content: string;

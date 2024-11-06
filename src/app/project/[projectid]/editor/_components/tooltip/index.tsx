@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ReferListItem from './refer-item';
 import FindListItem from './find-refer';
 import { HiMagnifyingGlassPlus, HiArrowPathRoundedSquare } from "react-icons/hi2";
+import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 
 interface IRefer {
     id: string;
@@ -69,15 +70,27 @@ const ReferTooltip = ({ refers, finds, isLoading, onSelection, refetch, isHiden 
                         onClick={() => handleShowView('refer')}
                         className="flex items-center space-x-2 w-full px-4 py-2 rounded hover:bg-slate-100 transition"
                     >
-                        <HiArrowPathRoundedSquare className="w-5 h-5" />
-                        <span>Refer</span>
+                        <div className="flex-1">
+                            <p className="text-primary/20 !p-0 !m-0 text-lg text-left -mt-4 ">
+                                Refer
+                            </p>
+                        </div>
+                        <div className='w-5 h-full grid place-items-center mt-1'>
+                            <MdOutlineKeyboardArrowRight className="text-gray-400 " />
+                        </div>
                     </button>
                     <button
                         onClick={() => handleShowView('find')}
                         className="flex items-center space-x-2 w-full px-4 py-2 rounded hover:bg-slate-100 transition"
                     >
-                        <HiMagnifyingGlassPlus className="w-5 h-5" />
-                        <span>Find</span>
+                        <div className="flex-1">
+                            <p className="text-primary/20 !p-0 !m-0 text-lg text-left -mt-4 ">
+                                Find
+                            </p>
+                        </div>
+                        <div className='w-5 h-full grid place-items-center mt-1'>
+                            <MdOutlineKeyboardArrowRight className="text-gray-400 " />
+                        </div>
                     </button>
                 </div>
             )}
