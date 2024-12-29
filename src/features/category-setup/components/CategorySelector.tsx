@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Select from '@radix-ui/react-select';
 import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
-import Input from '../../../components/ui/Input';
+import Input from '../../../components/ui/input';
 
 interface CategorySelectorProps {
   categories: Array<{

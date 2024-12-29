@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { LogoSVG } from '../../assets/images/svgs';
 import { Heading, Text } from '@radix-ui/themes';
-import Input from '../../components/ui/Input';
+import Input from '../../components/ui/input';
 import { authHandlers } from '../../services/handlers/auth';
 
 const OTPPage: React.FC = () => {

@@ -7,7 +7,7 @@ import { emailRegex, passwordRegex } from '../../libs/constants';
 import toast from 'react-hot-toast';
 import { LogoSVG } from '../../assets/images/svgs';
 import { Heading, Spinner, Text } from '@radix-ui/themes';
-import Input from '../../components/ui/Input';
+import Input from '../../components/ui/input';
 
 type FieldType = 'email' | 'password';
 

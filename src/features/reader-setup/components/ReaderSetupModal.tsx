@@ -5,7 +5,7 @@ import {
   ModalBody,
   ModalFooter,
 } from '../../../components/ui/Modal';
-import Button from '../../../components/ui/Button';
+import Button from '../../../components/ui/button';
 import { CATEGORIES } from '../constants';
 import ReaderSelector from './ReaderSelector';
 import FieldValueSelector from './FieldValueSelector';

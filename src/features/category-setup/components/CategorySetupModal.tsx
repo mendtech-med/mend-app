@@ -5,7 +5,7 @@ import {
   ModalBody,
   ModalFooter,
 } from '../../../components/ui/Modal';
-import Button from '../../../components/ui/Button';
+import Button from '../../../components/ui/button';
 import { CATEGORIES } from '../constants';
 import CategorySelector from './CategorySelector';
 import FieldValueSelector from './FieldValueSelector';

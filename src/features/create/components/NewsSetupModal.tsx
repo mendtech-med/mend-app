@@ -14,8 +14,8 @@ import {
   ModalBody,
   ModalFooter,
 } from '../../../components/ui/Modal';
-import Button from '../../../components/ui/Button';
-import Input from '../../../components/ui/Input';
+import Button from '../../../components/ui/button';
+import Input from '../../../components/ui/input';
 import { useFetchDropdowns } from '../hooks/useFetchDropdowns';
 import { brandHandlers } from '../../../services/handlers/brand';
 import { Text } from '@radix-ui/themes';
