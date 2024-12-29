@@ -1,4 +1,4 @@
-import { Input } from '../../../components/ui/Input';
+import Input from '../../../components/ui/Input';
 
 interface CategoryHeaderProps {
   searchTerm: string;
@@ -16,7 +16,7 @@ export const CategoryHeader = ({
         placeholder="Search categories..."
         // icon={<MagnifyingGlassIcon className="h-4 w-4" />}
         value={searchTerm}
-        onChange={(e) => onSearchChange(e.target.value)}
+        onChange={(e : React.ChangeEvent<HTMLInputElement>) => onSearchChange(e.target.value)}
       />
     </div>
   );

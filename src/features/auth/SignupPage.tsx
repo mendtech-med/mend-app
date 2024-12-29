@@ -6,7 +6,7 @@ import { emailRegex, passwordRegex } from '../../libs/constants';
 import toast from 'react-hot-toast';
 import { LogoSVG } from '../../assets/images/svgs';
 import { Heading, Spinner, Text } from '@radix-ui/themes';
-import { Input } from '../../components/ui/Input';
+import Input from '../../components/ui/Input';
 
 type FieldType = 'email' | 'password' | 'given_name' | 'family_name';
 
@@ -140,7 +140,7 @@ const SignUpPage: React.FC = () => {
                 type="text"
                 placeholder="Enter your first name"
                 value={givenName}
-                onChange={(e) => onChange('given_name', e.target.value)}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => onChange('given_name', e.target.value)}
               />
               {fieldErrors.given_name.hasError && (
                 <p className="text-sm text-theme-base">
@@ -159,7 +159,7 @@ const SignUpPage: React.FC = () => {
                 type="text"
                 placeholder="Enter your last name"
                 value={familyName}
-                onChange={(e) => onChange('family_name', e.target.value)}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => onChange('family_name', e.target.value)}
               />
               {fieldErrors.family_name.hasError && (
                 <p className="text-sm text-theme-base">
@@ -178,7 +178,7 @@ const SignUpPage: React.FC = () => {
                 type="email"
                 placeholder="Enter your email"
                 value={email}
-                onChange={(e) => onChange('email', e.target.value)}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => onChange('email', e.target.value)}
               />
               {fieldErrors.email.hasError && (
                 <p className="text-sm text-theme-base">
@@ -198,7 +198,7 @@ const SignUpPage: React.FC = () => {
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Enter your password"
                   value={password}
-                  onChange={(e) => onChange('password', e.target.value)}
+                  onChange={(e : React.ChangeEvent<HTMLInputElement>) => onChange('password', e.target.value)}
                 />
                 <button
                   type="button"

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Select from '@radix-ui/react-select';
 import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
-import { Input } from '../../../components/ui/Input';
+import Input from '../../../components/ui/Input';
 
 interface CategorySelectorProps {
   categories: Array<{
@@ -40,7 +40,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
         <Input
           placeholder="Enter title"
           value={selectedTitle}
-          onChange={(e) => onTitleChange(e.target.value)}
+          onChange={(e : React.ChangeEvent<HTMLInputElement>) => onTitleChange(e.target.value)}
         />
       </div>
 

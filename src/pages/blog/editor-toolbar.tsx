@@ -285,7 +285,7 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
                   type="text"
                   className="find-input"
                   value={type}
-                  onChange={(e) => setType(e.target.value)}
+                  onChange={(e : React.ChangeEvent<HTMLInputElement>) => setType(e.target.value)}
                   placeholder="Enter your type here"
                 />
                 <Button
@@ -532,7 +532,7 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
             <TextField.Root
               placeholder="Please enter text here..."
               value={otherText}
-              onChange={(e) => setOtherText(e.target.value)}
+              onChange={(e : React.ChangeEvent<HTMLInputElement>) => setOtherText(e.target.value)}
               className="mr-1 w-[200px]"
             />
             <Button

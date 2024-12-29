@@ -132,13 +132,13 @@ const DiscussPage = () => {
             <input
               type="date"
               value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              onChange={(e : React.ChangeEvent<HTMLInputElement>) => setStartDate(e.target.value)}
               className="border rounded p-1 flex-1"
             /><br/>
             <input
               type="date"
               value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
+              onChange={(e : React.ChangeEvent<HTMLInputElement>) => setEndDate(e.target.value)}
               className="border rounded p-1 flex-1"
             />
           </div>
@@ -256,7 +256,7 @@ const DiscussPage = () => {
           type="text"
           placeholder="Enter message..."
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e : React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
         />
         <button

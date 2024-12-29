@@ -15,7 +15,7 @@ import {
   ModalFooter,
 } from '../../../components/ui/Modal';
 import Button from '../../../components/ui/Button';
-import { Input } from '../../../components/ui/Input';
+import Input from '../../../components/ui/Input';
 import { useFetchDropdowns } from '../hooks/useFetchDropdowns';
 import { brandHandlers } from '../../../services/handlers/brand';
 import { Text } from '@radix-ui/themes';
@@ -259,7 +259,7 @@ const NewsSetupModal: React.FC = () => {
                     className=""
                     placeholder="Enter brand voice name"
                     value={newBrand.brandVoiceName}
-                    onChange={(e) =>
+                    onChange={(e : React.ChangeEvent<HTMLInputElement>) =>
                       setNewBrand({
                         ...newBrand,
                         brandVoiceName: e.target.value,
@@ -272,7 +272,7 @@ const NewsSetupModal: React.FC = () => {
                   <TextArea
                     placeholder="Add your content here to analyze the brand voice"
                     value={newBrand.content}
-                    onChange={(e) =>
+                    onChange={(e : React.ChangeEvent<HTMLTextAreaElement>) =>
                       setNewBrand({ ...newBrand, content: e.target.value })
                     }
                   />
@@ -350,7 +350,7 @@ const NewsSetupModal: React.FC = () => {
             </label>
             <Input
               value={newsTitle}
-              onChange={(e) => setNewsTitle(e.target.value)}
+              onChange={(e : React.ChangeEvent<HTMLInputElement>) => setNewsTitle(e.target.value)}
               placeholder="Enter News Title"
             />
           </div>

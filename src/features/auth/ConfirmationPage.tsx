@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { LogoSVG } from '../../assets/images/svgs';
 import { Heading, Text } from '@radix-ui/themes';
-import { Input } from '../../components/ui/Input';
+import Input from '../../components/ui/Input';
 import { authHandlers } from '../../services/handlers/auth';
 
 const OTPPage: React.FC = () => {
@@ -99,7 +99,7 @@ const OTPPage: React.FC = () => {
                 type="text"
                 placeholder="Enter your 6-digit OTP"
                 value={otp}
-                onChange={(e) => onChangeOTP(e.target.value)}
+                onChange={(e : React.ChangeEvent<HTMLInputElement>) => onChangeOTP(e.target.value)}
               />
               {otpError && (
                 <p className="text-sm text-theme-base">{otpError}</p>
