@@ -1,0 +1,18 @@
+.radix-themes {
+    --default-font-family: 'Poppins', sans-serif !important;
+}
+
+body{
+  background-color: #F9F9FB !important; 
+}
+
+
+body::selection{
+  background-color: #9B9EF0 !important;
+  color: #fff !important;
+}
+
+
+button{
+  cursor: pointer !important;
+}

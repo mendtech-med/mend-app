@@ -1,35 +1,19 @@
 import React from 'react';
 import { Text } from '@radix-ui/themes';
 
-interface InputProps {
+interface TextAreaProps {
   id?: string;
   label?: string;
-  type?:
-    | 'number'
-    | 'text'
-    | 'search'
-    | 'time'
-    | 'hidden'
-    | 'tel'
-    | 'url'
-    | 'email'
-    | 'date'
-    | 'datetime-local'
-    | 'month'
-    | 'password'
-    | 'week'
-    | undefined;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
   disabled?: boolean;
   className?: string;
 }
 
-const Input: React.FC<InputProps> = ({
+const TextArea: React.FC<TextAreaProps> = ({
   id,
   label,
-  type = 'text',
   value,
   onChange,
   placeholder,
@@ -44,15 +28,14 @@ const Input: React.FC<InputProps> = ({
         </Text>
       )}
 
-      <input
+      <textarea
         id={id}
-        type={type}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}
         className={`
-          w-full py-2 px-3 text-sm border border-gray-300 rounded-xl
+          resize-none w-full py-2 px-3 text-sm border border-gray-300 rounded-xl
           border-theme-accent/20 bg-white shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main
           disabled:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50
           ${className}
@@ -62,4 +45,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export { Input };
+export { TextArea };
