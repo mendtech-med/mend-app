@@ -3,6 +3,7 @@ import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import * as Popover from '@radix-ui/react-popover';
 import { MixerHorizontalIcon, Cross2Icon } from '@radix-ui/react-icons';
+import { baseURL } from '../../services/api/axios';
 
 class Message {
   text: string;
@@ -60,11 +61,12 @@ const DiscussPage = () => {
     const prompt = filters ? `${inputValue}\n${filters}` : inputValue;
 
     try {
-      const response = await fetch('https://x283426ve3.execute-api.us-east-1.amazonaws.com/chatbot', {
+      const response = await fetch(baseURL + "/chatbot", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           prompt: prompt,
+          newsId : ""
         }),
       });
 

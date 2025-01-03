@@ -452,3 +452,31 @@ body {
 .text-primary {
   color: #6869ac !important;
 }
+
+
+/* From subcriptions */
+.PricingTable{
+  border-radius: 2px !important;
+  background-color: black;
+}
+
+/* For WebKit Browsers (e.g., Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 6px; /* Adjust the width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f9f9f9; /* Track background color */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #eee; /* Scrollbar thumb color */
+  border-radius: 10px; /* Optional: Rounded corners */
+  border: 1px solid transparent; /* Optional: Add a border */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin; /* Makes the scrollbar thinner */
+  scrollbar-color: #eee #f9f9f9; /* Thumb color | Track color */
+}

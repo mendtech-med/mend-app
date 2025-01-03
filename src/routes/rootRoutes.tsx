@@ -12,11 +12,14 @@ import {
   SignupPage,
   ConfirmationPage,
   NewsPage,
+  PaymentPage,
+  PlanSelectionPage,
 } from '../features';
 import { categoryLoader } from '../features/category-setup/loaders/categoryLoader';
 import { readerLoader } from '../features/reader-setup/loaders/readerLoader';
 import PrivateRoute from './privateRoute';
 import { newsLoader } from '../features/create/loaders/newsLoader';
+import { subscriptionLoader } from '../features/subscription/loaders/subscriptionLoader';
 
 export const router = createBrowserRouter(
   [
@@ -27,6 +30,14 @@ export const router = createBrowserRouter(
     {
       path: '/confirm-otp',
       element: <ConfirmationPage />,
+    },
+    {
+      path: '/payment',
+      element: <PaymentPage />,
+    },
+    {
+      path: '/select-plan',
+      element: <PlanSelectionPage />,
     },
     {
       path: '/sign-up',
@@ -71,6 +82,7 @@ export const router = createBrowserRouter(
         {
           path: 'subscription',
           element: <SubscriptionPage />,
+          loader: subscriptionLoader
         },
         {
           path: 'help',

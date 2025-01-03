@@ -37,19 +37,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       const familyName = localStorage.getItem(AuthKeys.FAMILY_NAME);
       const expiry = localStorage.getItem(AuthKeys.EXPIRY);
 
-      if (accessToken && email && expiry) {
-        const expiryTime = parseInt(expiry);
-        if (expiryTime > Date.now()) {
-          setIsAuthenticated(true);
-          setUser({
-            email,
-            given_name: givenName!,
-            family_name: familyName!,
-            access_token: accessToken!,
-          });
-        } else {
-          logout();
-        }
+      const check = accessToken && email && expiry;
+      if (check) {
+        setIsAuthenticated(true);
+        setUser({
+          email,
+          given_name: givenName!,
+          family_name: familyName!,
+          access_token: accessToken!,
+        });
+      } else {
+        logout()
       }
     };
 

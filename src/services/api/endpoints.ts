@@ -36,4 +36,12 @@ export const ENDPOINTS = {
     FIND: '/news/findSelectedText',
     REFER: '/news/referSelectedText',
   },
+  SUBSCRIPTION: {
+    DETAILS: '/subscription/',
+    SUBCRIBE: '/subscription/',
+    CANCEL: '/subscription/cancel',
+    UPGRADE: '/subscription/upgrade',
+    GET: (id: string) => `/${id}`,
+    DELETE: (id: string) => `/news/delete/${id}`,
+  },
 };

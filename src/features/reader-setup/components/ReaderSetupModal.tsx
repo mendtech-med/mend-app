@@ -124,9 +124,18 @@ const ReaderSetupModal = () => {
       }
       setIsOpen(false);
       handleReset();
-    } catch (error) {
+    } catch (err) {
+      const error = err as {
+        message: string;
+        response: {
+          data: { message: string }
+        }
+      }
       console.log(error);
-      alert('error');
+      if(error.response.data.message){
+        return alert(error.response.data.message);
+      }
+      alert(error.message);
     }
   };
 

@@ -69,8 +69,15 @@ const LoginPage: React.FC = () => {
         navigate('/');
       }
     } catch (err) {
-      const error = err as { response: { data: { message: string } } };
-      console.error(error.response.data.message);
+      const error = err as { response: { data: { message: string, plan: boolean } } };
+      console.error(error.response.data);
+      if (!error.response.data.plan) {
+        navigate('/select-plan', {
+          state: { email },
+          replace: true
+        })
+        return;
+      }
       if (error.response.data.message) {
         toast.error(error.response.data.message);
         return;
@@ -121,7 +128,7 @@ const LoginPage: React.FC = () => {
                 type="email"
                 placeholder="Enter your email"
                 value={email}
-                onChange={(e : React.ChangeEvent<HTMLInputElement>) => onChange('email', e.target.value)}
+                onChange={(e) => onChange('email', e.target.value)}
               />
               {fieldErrors.email.hasError && (
                 <p className="text-sm text-theme-base">

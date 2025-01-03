@@ -48,7 +48,19 @@ const ReaderSelector: React.FC<ReaderSelectorProps> = ({
           News Type
         </label>
         <Select.Root value={selectedReader} onValueChange={onReaderChange}>
-          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main">
+          <Select.Trigger
+            ref={(ref) => {
+              if (ref) {
+                const content = ref.nextElementSibling;
+                if (content) {
+                  const contentElement = content.querySelector('[data-radix-select-content]') as HTMLElement;
+                  if (contentElement) {
+                    contentElement.style.width = `${ref.clientWidth}px`;
+                  }
+                }
+              }
+            }}
+            className="inline-flex w-full items-center justify-between rounded-xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main">
             <Select.Value placeholder="Select a news type" />
             <Select.Icon>
               <ChevronDownIcon />
@@ -60,6 +72,7 @@ const ReaderSelector: React.FC<ReaderSelectorProps> = ({
               className="overflow-hidden rounded-md bg-white shadow-lg z-50"
               position="popper"
               sideOffset={5}
+              style={{ width: 'var(--radix-select-trigger-width)' }}
             >
               <Select.ScrollUpButton className="flex h-6 items-center justify-center bg-white">
                 <ChevronUpIcon />
@@ -96,7 +109,19 @@ const ReaderSelector: React.FC<ReaderSelectorProps> = ({
           onValueChange={onSubcategoryChange}
           disabled={!selectedReader}
         >
-          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main disabled:bg-gray-100 disabled:cursor-not-allowed">
+          <Select.Trigger
+            ref={(ref) => {
+              if (ref) {
+                const content = ref.nextElementSibling;
+                if (content) {
+                  const contentElement = content.querySelector('[data-radix-select-content]') as HTMLElement;
+                  if (contentElement) {
+                    contentElement.style.width = `${ref.clientWidth}px`;
+                  }
+                }
+              }
+            }}
+            className="inline-flex w-full items-center justify-between rounded-xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main disabled:bg-gray-100 disabled:cursor-not-allowed">
             <Select.Value placeholder="Select a news category" />
             <Select.Icon>
               <ChevronDownIcon />
@@ -108,6 +133,7 @@ const ReaderSelector: React.FC<ReaderSelectorProps> = ({
               className="overflow-hidden rounded-md bg-white shadow-lg z-50"
               position="popper"
               sideOffset={5}
+              style={{ width: 'var(--radix-select-trigger-width)' }}
             >
               <Select.ScrollUpButton className="flex h-6 items-center justify-center bg-white">
                 <ChevronUpIcon />

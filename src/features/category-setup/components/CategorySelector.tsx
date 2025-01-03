@@ -46,10 +46,23 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
 
       <div className="w-full">
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          News Type
+          News Type 
         </label>
         <Select.Root value={selectedCategory} onValueChange={onCategoryChange}>
-          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main">
+          <Select.Trigger 
+            ref={(ref) => {
+              if (ref) {
+                const content = ref.nextElementSibling;
+                if (content) {
+                  const contentElement = content.querySelector('[data-radix-select-content]') as HTMLElement;
+                  if (contentElement) {
+                    contentElement.style.width = `${ref.clientWidth}px`;
+                  }
+                }
+              }
+            }}
+            className="inline-flex w-full items-center justify-between rounded-xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main"
+          >
             <Select.Value placeholder="Select a news type" />
             <Select.Icon>
               <ChevronDownIcon />
@@ -61,18 +74,19 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
               className="overflow-hidden rounded-md bg-white shadow-lg z-50"
               position="popper"
               sideOffset={5}
+              style={{ width: 'var(--radix-select-trigger-width)' }}
             >
               <Select.ScrollUpButton className="flex h-6 items-center justify-center bg-white">
                 <ChevronUpIcon />
               </Select.ScrollUpButton>
 
-              <Select.Viewport className="p-1">
+              <Select.Viewport className="p-1 w-full">
                 <Select.Group>
                   {categories.map((category) => (
                     <Select.Item
                       key={category.value}
                       value={category.value}
-                      className="relative flex cursor-pointer select-none items-center rounded-sm py-1.5 px-2 text-sm outline-none focus:bg-slate-100 data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                      className="relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 px-2 text-sm outline-none focus:bg-slate-100 data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                     >
                       <Select.ItemText>{category.label}</Select.ItemText>
                     </Select.Item>
@@ -97,7 +111,20 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
           onValueChange={onSubcategoryChange}
           disabled={!selectedCategory}
         >
-          <Select.Trigger className="inline-flex w-full items-center justify-between rounded-2xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main disabled:bg-gray-100 disabled:cursor-not-allowed">
+          <Select.Trigger 
+            ref={(ref) => {
+              if (ref) {
+                const content = ref.nextElementSibling;
+                if (content) {
+                  const contentElement = content.querySelector('[data-radix-select-content]') as HTMLElement;
+                  if (contentElement) {
+                    contentElement.style.width = `${ref.clientWidth}px`;
+                  }
+                }
+              }
+            }}
+            className="inline-flex w-full items-center justify-between rounded-2xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main disabled:bg-gray-100 disabled:cursor-not-allowed"
+          >
             <Select.Value placeholder="Select a news category" />
             <Select.Icon>
               <ChevronDownIcon />
@@ -109,18 +136,19 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
               className="overflow-hidden rounded-md bg-white shadow-lg z-50"
               position="popper"
               sideOffset={5}
+              style={{ width: 'var(--radix-select-trigger-width)' }}
             >
               <Select.ScrollUpButton className="flex h-6 items-center justify-center bg-white">
                 <ChevronUpIcon />
               </Select.ScrollUpButton>
 
-              <Select.Viewport className="p-1">
+              <Select.Viewport className="p-1 w-full">
                 <Select.Group>
                   {selectedCategoryData?.subcategories.map((sub) => (
                     <Select.Item
                       key={sub.value}
                       value={sub.value}
-                      className="relative flex cursor-pointer select-none items-center rounded-sm py-1.5 px-2 text-sm outline-none focus:bg-slate-100 data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                      className="relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 px-2 text-sm outline-none focus:bg-slate-100 data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                     >
                       <Select.ItemText>{sub.label}</Select.ItemText>
                     </Select.Item>

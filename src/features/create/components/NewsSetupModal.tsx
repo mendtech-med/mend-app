@@ -132,7 +132,7 @@ const NewsSetupModal: React.FC = () => {
         brandId: selectedBrand,
         readerId: selectedReader,
         categoryId: selectedCategory,
-        content : null
+        content: null
       };
       const res = await newsHandlers.createNews(data);
       revalidator.revalidate();
@@ -259,7 +259,7 @@ const NewsSetupModal: React.FC = () => {
                     className=""
                     placeholder="Enter brand voice name"
                     value={newBrand.brandVoiceName}
-                    onChange={(e : React.ChangeEvent<HTMLInputElement>) =>
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setNewBrand({
                         ...newBrand,
                         brandVoiceName: e.target.value,
@@ -272,7 +272,7 @@ const NewsSetupModal: React.FC = () => {
                   <TextArea
                     placeholder="Add your content here to analyze the brand voice"
                     value={newBrand.content}
-                    onChange={(e : React.ChangeEvent<HTMLTextAreaElement>) =>
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                       setNewBrand({ ...newBrand, content: e.target.value })
                     }
                   />
@@ -286,7 +286,7 @@ const NewsSetupModal: React.FC = () => {
                   </label>
                   <Button
                     size="md"
-                    
+
                     className="gap-2 border-0 absolute top-7 right-20 not-selected"
                     onClick={() => setBrandFormVisible(true)}
                   >
@@ -350,7 +350,7 @@ const NewsSetupModal: React.FC = () => {
             </label>
             <Input
               value={newsTitle}
-              onChange={(e : React.ChangeEvent<HTMLInputElement>) => setNewsTitle(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewsTitle(e.target.value)}
               placeholder="Enter News Title"
             />
           </div>

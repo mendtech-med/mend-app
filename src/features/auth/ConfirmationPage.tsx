@@ -2,16 +2,25 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { LogoSVG } from '../../assets/images/svgs';
-import { Heading, Text } from '@radix-ui/themes';
+import { Heading, Spinner, Text } from '@radix-ui/themes';
 import Input from '../../components/ui/input';
 import { authHandlers } from '../../services/handlers/auth';
+import { handleRedirect } from '../../libs/utils/handleRedirect';
 
 const OTPPage: React.FC = () => {
-  const { state: userEmail } = useLocation();
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [otpError, setOtpError] = useState('');
+  const location = useLocation();
+
+  const { email, plan, billing } = location.state;
+  console.log(email, plan, billing);
+
+  if (!email || !plan || !billing) {
+    handleRedirect('https://www.newsgraf.com/pricing');
+    return <Spinner />
+  }
 
   const onConfirmOTP = async () => {
     if (otp.trim() === '' || otp.length !== 6) {
@@ -23,13 +32,18 @@ const OTPPage: React.FC = () => {
 
     try {
       const result = await authHandlers.confirmRegistration({
-        email: userEmail,
+        email,
         confirmationCode: otp,
       });
 
       if (result.success) {
         toast.success(result.message);
-        navigate('/');
+        navigate('/payment', {
+          state: {
+            plan, billing, email
+          },
+          replace: true
+        });
       }
     } catch (err) {
       const error = err as { response: { data: { message: string } } };
@@ -53,7 +67,7 @@ const OTPPage: React.FC = () => {
   const resendOTP = async () => {
     try {
       const result = await authHandlers.resendConfirmationCode({
-        email: userEmail,
+        email,
       });
 
       if (result.success) {
@@ -75,10 +89,6 @@ const OTPPage: React.FC = () => {
 
   return (
     <div className="h-screen flex flex-col">
-      {isSubmitting && (
-        <div className="text-center text-lg text-theme-base">Verifying...</div>
-      )}
-
       <div className="flex flex-col flex-1 justify-center items-center space-y-5">
         <header className="h-12 px-4 flex items-center">
           <img src={LogoSVG} alt="Company logo" className="h-8" />
@@ -117,13 +127,14 @@ const OTPPage: React.FC = () => {
                 </Text>
               </button>
               <button
-                className="bg-theme-main text-white px-4 py-2 rounded-lg hover:bg-theme-accent"
+                className="flex items-center gap-2 bg-theme-main text-white px-4 py-2 rounded-lg hover:bg-theme-accent"
                 onClick={onConfirmOTP}
                 disabled={isSubmitting}
               >
                 <Text as="label" weight="medium" size={'2'}>
                   Confirm OTP
                 </Text>
+                {isSubmitting && <Spinner />}
               </button>
             </div>
           </div>

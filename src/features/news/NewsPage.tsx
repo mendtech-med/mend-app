@@ -12,6 +12,7 @@ import { useParams } from 'react-router-dom';
 import { Spinner } from '../create/components/spinner/spinner';
 import { INews } from 'src/services/api/types';
 import { ENDPOINTS } from '../../services/api/endpoints';
+import { baseURL } from '../../services/api/axios';
 
 // Extensions
 const extensions: Extensions = [
@@ -33,8 +34,7 @@ const NewsPage = () => {
   const [loadingNewContent, setLoadingNewContent] = useState(true);
   const [generatingNewContent, setGeneratingNewContent] = useState(false);
   const [news, setNews] = useState({} as INews);
-  const baseURL = 'https://x283426ve3.execute-api.us-east-1.amazonaws.com';
-
+  
   useEffect(() => {
     let isMounted = true;
     let eventSource : EventSource | null = null;

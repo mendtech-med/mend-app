@@ -34,6 +34,7 @@ const Modal = ({ isOpen, onClose, children, maxWidth = 'lg' }: ModalProps) => {
             <Cross2Icon
               className="absolute top-5 right-5 w-5 h-5 cursor-pointer"
               onClick={onClose}
+              type='button'
             />
             {children}
           </Dialog.Content>

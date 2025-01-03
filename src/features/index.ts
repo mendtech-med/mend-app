@@ -10,3 +10,5 @@ export { default as HelpPage } from './help/HelpPage';
 export { default as LoginPage } from './auth/LoginPage';
 export { default as SignupPage } from './auth/SignupPage';
 export { default as ConfirmationPage } from './auth/ConfirmationPage';
+export { default as PaymentPage } from './auth/PaymentPage';
+export { default as PlanSelectionPage } from './auth/PlanSelectionPage';

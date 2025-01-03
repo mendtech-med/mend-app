@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { EyeNoneIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { authHandlers } from '../../services/handlers/auth';
 import { emailRegex, passwordRegex } from '../../libs/constants';
@@ -7,10 +7,22 @@ import toast from 'react-hot-toast';
 import { LogoSVG } from '../../assets/images/svgs';
 import { Heading, Spinner, Text } from '@radix-ui/themes';
 import Input from '../../components/ui/input';
+import { handleRedirect } from '../../libs/utils/handleRedirect';
+
+const verifyQuery = (searchParams: URLSearchParams) => {
+  const planQuery = ['pro', 'collaborate', 'enterprise'].includes(searchParams.get('plan')!)
+  const billingQuery = ['monthly', 'annually'].includes(searchParams.get('billing')!)
+  if (planQuery && billingQuery) {
+    return true
+  }
+
+  return false
+}
 
 type FieldType = 'email' | 'password' | 'given_name' | 'family_name';
 
 const SignUpPage: React.FC = () => {
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
@@ -18,13 +30,18 @@ const SignUpPage: React.FC = () => {
   const [givenName, setGivenName] = useState('');
   const [familyName, setFamilyName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [fieldErrors, setFieldErrors] = useState({
     email: { message: '', hasError: false },
     password: { message: '', hasError: false },
     given_name: { message: '', hasError: false },
     family_name: { message: '', hasError: false },
   });
+
+  const isValidQuery = verifyQuery(searchParams)
+  if (!isValidQuery) {
+    handleRedirect('https://www.newsgraf.com/pricing');
+    return <Spinner />
+  }
 
   const getFieldError = (value: string, hasError: boolean, type: FieldType) => {
     if (hasError) {
@@ -73,7 +90,11 @@ const SignUpPage: React.FC = () => {
 
       if (response) {
         toast.success('Account created successfully!');
-        navigate('/confirm-otp', { state: email });
+        navigate('/confirm-otp', { state: {
+          email,
+          plan: searchParams.get('plan'),
+          billing: searchParams.get('billing'),
+        }, replace: true },);
       }
     } catch (err) {
       const error = err as { response: { data: { message: string } } };
