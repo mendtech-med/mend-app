@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseURL = 'https://x283426ve3.execute-api.us-east-1.amazonaws.com';
+export const baseURL = 'https://x283426ve3.execute-api.us-east-1.amazonaws.com';
+// export const baseURL = 'http://localhost:8000';
 
 const axiosInstance = axios.create({
   baseURL,
@@ -20,6 +21,8 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
+    console.log("ERROR", error);
+    
     return Promise.reject(error);
   }
 );
@@ -28,9 +31,11 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log("RES: ERROR", error);
+    
     // Handle common errors (401, 403, etc.)
     if (error.response?.status === 401) {
-      // Handle unauthorized
+      location.href = '/login'
     }
     return Promise.reject(error);
   }
