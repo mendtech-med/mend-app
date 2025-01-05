@@ -16,7 +16,7 @@ import {
   toolbarToggleItemStyle,
 } from './style';
 import { useCurrentEditor } from '@tiptap/react';
-import { Button, Text, TextField } from '@radix-ui/themes';
+import { Button, DropdownMenu, Text, TextField } from '@radix-ui/themes';
 import { FC, useEffect, useRef, useState } from 'react';
 import { editorConstants } from './../../constant';
 import { useDebounce } from '../../features/create/hooks/useDebounce';
@@ -159,7 +159,7 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
       setIsOtherText(true);
       return; // Wait for input in 'Other'
     }
-    
+
     setIsOtherText(false);
     setIsRewriting(true);
 
@@ -181,7 +181,7 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
     };
     try {
       const data = await newsHandlers.findSelectedText(payload);
-      editor?.chain().focus().setHorizontalRule().run()
+      editor?.chain().focus().setHorizontalRule().run();
       editor
         .chain()
         .focus()
@@ -192,7 +192,7 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
             "\n<p><br><br class='ProseMirror-trailingBreak'></p>\n"
         )
         .run();
-        editor?.chain().focus().setHorizontalRule().run()
+      editor?.chain().focus().setHorizontalRule().run();
       setIsRewriting(false);
     } catch (error) {
       setIsRewriting(false);
@@ -532,14 +532,16 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
             <TextField.Root
               placeholder="Please enter text here..."
               value={otherText}
-              onChange={(e : React.ChangeEvent<HTMLInputElement>) => setOtherText(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setOtherText(e.target.value)
+              }
               className="mr-1 w-[200px]"
             />
             <Button
               css={toolbarToggleItemStyle(true)}
               onClick={() => handleFind(otherText)}
               disabled={!otherText.trim()}
-              className='cursor-pointer'
+              className="cursor-pointer"
             >
               <MdSearch />
             </Button>

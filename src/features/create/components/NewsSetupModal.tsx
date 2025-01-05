@@ -113,7 +113,7 @@ const NewsSetupModal: React.FC = () => {
     }
   };
 
-  const handleReset = (id?: string) => {
+  const handleReset = (id?: string, fromConfirm = false) => {
     setSelectedReader('');
     setSelectedCategory('');
     setSelectedBrand('');
@@ -121,7 +121,7 @@ const NewsSetupModal: React.FC = () => {
     setNewsTitle('');
 
     setCurrentStep('reader-category');
-    navigate(`/news/${id}`);
+    if(fromConfirm) navigate(`/news/${id}`);
     setIsOpen(false);
   };
 
@@ -137,7 +137,7 @@ const NewsSetupModal: React.FC = () => {
       const res = await newsHandlers.createNews(data);
       revalidator.revalidate();
       setIsOpen(false);
-      handleReset(res.data._id);
+      handleReset(res.data._id, true);
     } catch (error) {
       console.error('Error creating news:', error);
       alert('Failed to create news. Please try again.');
@@ -291,7 +291,7 @@ const NewsSetupModal: React.FC = () => {
                     onClick={() => setBrandFormVisible(true)}
                   >
                     <PlusIcon className="scale-125" />
-                    <Text>Voice</Text>
+                    <Text>Create</Text>
                   </Button>
                 </div>
                 <Select.Root
