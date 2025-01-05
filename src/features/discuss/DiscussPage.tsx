@@ -66,7 +66,7 @@ const DiscussPage = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           prompt: prompt,
-          newsId : ""
+          news_type_context : "677a1a7000347cde8b0d2807"
         }),
       });
 
