@@ -16,7 +16,7 @@ import {
   toolbarToggleItemStyle,
 } from './style';
 import { useCurrentEditor } from '@tiptap/react';
-import { Button, DropdownMenu, Text, TextField } from '@radix-ui/themes';
+import { Button, Text, TextField } from '@radix-ui/themes';
 import { FC, useEffect, useRef, useState } from 'react';
 import { editorConstants } from './../../constant';
 import { useDebounce } from '../../features/create/hooks/useDebounce';
