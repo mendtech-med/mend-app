@@ -4,7 +4,8 @@ import { ISubscriptionResponse } from '../../../types/index.types';
 export const subscriptionLoader = async () => {
     try {
         const subscription = await subscriptionHandler.subscriptionDetails() as ISubscriptionResponse;
-
+        console.log("SUBS:::", subscription);
+        
         if (subscription.success) {
             return subscription.data;
         }

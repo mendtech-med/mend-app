@@ -21,6 +21,15 @@ export interface ISubscriptionLimits {
   editorialFind: boolean;
 }
 
+export interface IInvoice {
+  id: string;
+  amount_due: number;
+  currency: string;
+  status: string;
+  created: string;
+  pdf: string;
+}
+
 export interface ISubscriptionData {
   details: {
     billingCycle: "monthly" | "annually";
@@ -38,6 +47,7 @@ export interface ISubscriptionData {
     __v: number;
     _id: string;
   };
+  invoices: IInvoice[];
   totalReaders: number;
   totalCategories: number;
   currentPlan: {

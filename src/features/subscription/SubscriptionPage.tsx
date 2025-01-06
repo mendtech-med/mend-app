@@ -7,15 +7,13 @@ import {
     PersonIcon,
     FileIcon,
     GroupIcon,
-    UploadIcon,
     IdCardIcon,
     EnvelopeClosedIcon,
     LayersIcon,
     InfoCircledIcon,
-    BellIcon,
+    // BellIcon,
     PlusCircledIcon,
     Pencil1Icon,
-    DownloadIcon,
 } from '@radix-ui/react-icons';
 import PlanInfoPopover from './components/PlanPopover';
 import { Navigate, useLoaderData, useNavigate, useNavigation, useRevalidator } from 'react-router-dom';
@@ -23,8 +21,11 @@ import { ISubscriptionData, ValTypes } from '../../types/index.types';
 import subscriptionHandler from '../../services/handlers/subscription';
 import { useAuth } from '../../context/authContext';
 import { getFormattedDate } from '../../libs/utils/getFormattedDate';
-import SelectPlan from '../../components/ui/SelectPlan';
 import { Spinner } from '@radix-ui/themes';
+import Select from '../../components/ui/Select';
+import { PLAN_OPTIONS } from '../../libs/constants';
+import InvoiceList from './components/InvoiceList';
+import Input from '../../components/ui/input';
 
 // Mocked data - replace with actual data from your backend
 const subscriptionData = {
@@ -61,27 +62,23 @@ const SubscriptionManagementPage = () => {
     const [isBillingInfoOpen, setIsBillingInfoOpen] = useState(false);
     const [isAddAccountModalOpen, setIsAddAccountModalOpen] = useState(false);
     const [isAlertSettingsModalOpen, setIsAlertSettingsModalOpen] = useState(false);
-    const [upgradedPlan, setUpgradedPlan] = useState({
-        plan: '',
-        billingCycle: ''
-    })
+    const [selectedValue, setSelectedValue] = useState<string>("");
+    const [accountEmail, setAccountEmail] = useState<string>('');
     const loaderData = useLoaderData() as ISubscriptionData;
 
     if (loaderData === null) {
         return <Navigate to='/' />
     }
 
-    const handleSelectPlan = (plan: string, billing: string) => {
-        setUpgradedPlan({
-            plan,
-            billingCycle: billing
-        });
+    const handleSelectPlan = (plan: string) => {
+        setSelectedValue(plan);
     }
 
     const handleUpgradePlan = async () => {
-        const { plan, billingCycle } = upgradedPlan
+        const [plan, billingCycle] = selectedValue.split('-');
         if (!plan || !billingCycle) {
-            alert("Select plan first")
+            alert("Select plan first");
+            return;
         }
 
         try {
@@ -90,12 +87,76 @@ const SubscriptionManagementPage = () => {
                 billingCycle
             });
             setIsUpgradeModalOpen(false);
+            setSelectedValue('');
             revalidate.revalidate();
 
             alert("Plan upgraded")
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const handleUpdateBillingPlan = async () => {
+        if (!selectedValue) {
+            alert("Select plan first")
+            return;
+        }
+
+        try {
+            await subscriptionHandler.updateSubscription({
+                planId: loaderData.details.currentPlan!,
+                billingCycle: selectedValue
+            });
+            setIsBillingInfoOpen(false);
+            setSelectedValue('');
+            revalidate.revalidate();
+
+            alert("Plan upgraded")
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleAddAccount = async () => {
+        if (!accountEmail) {
+            alert("Please add valid email");
+            return
+        }
+
+        try {
+            const interval = loaderData.currentPlan.data[0].plan.interval;
+            let newInterval;
+            switch (interval) {
+                case 'month':
+                    newInterval = 'monthly'
+                    break;
+
+                case 'annual':
+                    newInterval = 'annually'
+                    break;
+
+                default:
+                    newInterval = 'monthly';
+                    break;
+            }
+
+            await subscriptionHandler.addAccount({
+                email: accountEmail,
+                planId: loaderData.details.currentPlan!,
+                billingCycle: newInterval
+            });
+            setIsAddAccountModalOpen(false);
+            setAccountEmail('');
+            revalidate.revalidate();
+
+            alert("Account has been added")
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleAccountEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAccountEmail(e.target.value)
     }
 
     // Modals for different functionalities
@@ -108,7 +169,8 @@ const SubscriptionManagementPage = () => {
                         <InfoCircledIcon className="w-6 h-6 mr-2 text-theme-main" />
                         <h3 className="">Current Plan Features</h3>
                     </div>
-                    <SelectPlan onSelectPlanAndBilling={handleSelectPlan} />
+                    <Select options={PLAN_OPTIONS} value={selectedValue} onChange={handleSelectPlan} />
+                    {/* <SelectPlan value={upgradedPlan} onSelectPlanAndBilling={handleSelectPlan} /> */}
                     {/* Add upgrade plan options here */}
                 </div>
             </ModalBody>
@@ -123,7 +185,7 @@ const SubscriptionManagementPage = () => {
                     onClick={handleUpgradePlan}
                     className="px-4 py-2 bg-theme-main text-white rounded-md"
                 >
-                    Confirm Upgrade 
+                    Confirm Upgrade
 
                     {useNavigation().state === 'loading' && <Spinner />}
                 </button>
@@ -137,16 +199,11 @@ const SubscriptionManagementPage = () => {
             <ModalBody>
                 <div className="space-y-4">
                     <div>
-                        <label className="block mb-2">Billing Email</label>
-                        <input
-                            type="email"
-                            className="w-full px-3 py-2 border rounded-md"
-                            defaultValue="billing@example.com"
-                        />
-                    </div>
-                    <div>
                         <label className="block mb-2">Billing Cycle</label>
-                        <select className="w-full px-3 py-2 border rounded-md">
+                        <select
+                            className="w-full px-3 py-2 border rounded-md"
+                            onChange={e => handleSelectPlan(e.target.value)}
+                        >
                             <option value="monthly">Monthly</option>
                             <option value="annually">Annually</option>
                         </select>
@@ -162,6 +219,7 @@ const SubscriptionManagementPage = () => {
                     Cancel
                 </button>
                 <button
+                    onClick={handleUpdateBillingPlan}
                     className="px-4 py-2 bg-theme-main text-white rounded-md"
                 >
                     Save Changes
@@ -176,19 +234,10 @@ const SubscriptionManagementPage = () => {
             <ModalBody>
                 <div className="space-y-4">
                     <div>
-                        <label className="block mb-2">Account Name</label>
-                        <input
-                            type="text"
-                            className="w-full px-3 py-2 border rounded-md"
-                            placeholder="Enter account name"
-                        />
-                    </div>
-                    <div>
-                        <label className="block mb-2">Email</label>
-                        <input
-                            type="email"
-                            className="w-full px-3 py-2 border rounded-md"
-                            placeholder="Enter email"
+                        <Input
+                            onChange={handleAccountEmail}
+                            value={accountEmail}
+                            label='Email'
                         />
                     </div>
                 </div>
@@ -201,6 +250,7 @@ const SubscriptionManagementPage = () => {
                     Cancel
                 </button>
                 <button
+                    onClick={handleAddAccount}
                     className="px-4 py-2 bg-theme-main text-white rounded-md"
                 >
                     Add Account
@@ -245,12 +295,21 @@ const SubscriptionManagementPage = () => {
     );
 
     const cancelSubscription = async () => {
-        try {
-            await subscriptionHandler.cancelSubscription();
-            logout();
-            navigate("/login")
-        } catch (error) {
-            console.log(error);
+        const userResponse = confirm("Are you sure you want to cancel?");
+
+        // Check the user's response
+        if (userResponse) {
+            // User clicked "OK"
+            try {
+                await subscriptionHandler.cancelSubscription();
+                logout();
+                navigate("/login")
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            // User clicked "Cancel"
+            console.log("User canceled the action.");
         }
     }
 
@@ -259,7 +318,6 @@ const SubscriptionManagementPage = () => {
 
         return val
     }
-    console.log("PLAN: ", loaderData.currentPlan);
 
     return (
         <div className="container mx-auto p-6 space-y-6">
@@ -293,7 +351,7 @@ const SubscriptionManagementPage = () => {
                         </div>
                         <div className="pl-7">
                             <p className=" capitalize">{loaderData.details.currentPlan}</p>
-                            <p className="text-gray-600">{loaderData.currentPlan.data[0].currency === 'eur' ? '€' : 'eur'}{loaderData.currentPlan.data[0].plan.amount} / {loaderData.currentPlan.data[0].plan.interval}</p>
+                            <p className="text-gray-600">{loaderData.currentPlan.data[0].currency === 'eur' ? '€' : 'eur'}{loaderData.currentPlan.data[0].plan.amount.toFixed(2)} / {loaderData.currentPlan.data[0].plan.interval}</p>
                         </div>
                     </div>
 
@@ -355,10 +413,6 @@ const SubscriptionManagementPage = () => {
                 {/* Subscription Management Actions */}
                 <div className="mt-6 border-t pt-4">
                     <div className="flex justify-between items-center">
-                        <h3 className=" flex items-center space-x-2">
-                            <UploadIcon className="w-5 h-5 text-gray-600" />
-                            <span>Manage Subscription</span>
-                        </h3>
                         <div className="space-x-2">
                             <button
                                 className="bg-theme-main text-white px-4 py-2 rounded-xl hover:bg-theme-main/95 transition"
@@ -398,13 +452,13 @@ const SubscriptionManagementPage = () => {
                             <PlusCircledIcon className="w-5 h-5 text-gray-500 group-hover:text-theme-main transition-colors" />
                             Account
                         </button>
-                        <button
+                        {/* <button
                             className="flex items-center gap-1 text-theme-main text-sm  hover:text-theme-main/80 transition-colors group"
                             onClick={() => setIsAlertSettingsModalOpen(true)}
                         >
                             <BellIcon className="w-5 h-5 text-gray-500 group-hover:text-theme-main transition-colors" />
                             Settings
-                        </button>
+                        </button> */}
                     </div>
                 </div>
 
@@ -431,26 +485,20 @@ const SubscriptionManagementPage = () => {
                             <EnvelopeClosedIcon className="w-5 h-5 text-gray-600" />
                             <h3 className="">Billing Email</h3>
                         </div>
-                        <p className="pl-7">billing@example.com</p>
+                        <p className="pl-7">{loaderData.details.email}</p>
                     </div>
                 </div>
 
                 {/* Invoice Download Section */}
-                <div className="mt-6 border-t pt-4">
-                    <div className="flex justify-between items-center">
-                        <h3 className=" flex items-center space-x-2">
-                            <FileIcon className="w-5 h-5 text-gray-600" />
-                            <span>Invoices</span>
-                        </h3>
-                        <button
-                            className="flex items-center space-x-2 bg-theme-main text-white px-4 py-2 rounded-xl hover:bg-blue-100 transition-colors group"
-                        >
-                            <DownloadIcon className="w-5 h-5 text-white group-hover:text-white transition-colors" />
-                            <span>Invoices</span>
-                        </button>
+                <div className="mt-6 border-t pt-4 space-y-3">
+                    <div className="flex items-center space-x-3">
+                        <h2 className="text-xl ">Invoices History</h2>
                     </div>
+
+                    <InvoiceList invoices={loaderData.invoices} />
                 </div>
             </div>
+
         </div>
     );
 };

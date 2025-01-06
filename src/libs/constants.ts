@@ -14,12 +14,12 @@ export const passwordRegex =
 
 
 
-export interface IPlanOpt {
+export interface IOpt {
   label: string;
   value: string;
 }
 
-export const PLAN_OPTIONS: IPlanOpt[] = [
+export const PLAN_OPTIONS: IOpt[] = [
   { label: 'Pro Monthly', value: 'pro-monthly' },
   { label: 'Collaborate Monthly', value: 'collaborate-monthly' },
   { label: 'Enterprise Monthly', value: 'enterprise-monthly' },

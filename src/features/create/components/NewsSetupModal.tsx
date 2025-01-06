@@ -157,7 +157,19 @@ const NewsSetupModal: React.FC = () => {
                 value={selectedReader}
                 onValueChange={setSelectedReader}
               >
-                <Select.Trigger className="inline-flex w-full items-center justify-between rounded-xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main">
+                <Select.Trigger className="inline-flex w-full items-center justify-between rounded-xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main"
+                  ref={(ref) => {
+                    if (ref) {
+                      const content = ref.nextElementSibling;
+                      if (content) {
+                        const contentElement = content.querySelector('[data-radix-select-content]') as HTMLElement;
+                        if (contentElement) {
+                          contentElement.style.width = `${ref.clientWidth}px`;
+                        }
+                      }
+                    }
+                  }}
+                >
                   <Select.Value placeholder="Reader" />
                   <Select.Icon>
                     <ChevronDownIcon />
@@ -169,6 +181,7 @@ const NewsSetupModal: React.FC = () => {
                     className="overflow-hidden rounded-md bg-white shadow-lg z-50"
                     position="popper"
                     sideOffset={5}
+                    style={{ width: 'var(--radix-select-trigger-width)' }}
                   >
                     <Select.ScrollUpButton className="flex h-6 items-center justify-center bg-white">
                       <ChevronUpIcon />
@@ -205,7 +218,19 @@ const NewsSetupModal: React.FC = () => {
                 onValueChange={setSelectedCategory}
                 disabled={!selectedReader}
               >
-                <Select.Trigger className="inline-flex w-full items-center justify-between rounded-xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main disabled:bg-gray-100 disabled:cursor-not-allowed">
+                <Select.Trigger className="inline-flex w-full items-center justify-between rounded-xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  ref={(ref) => {
+                    if (ref) {
+                      const content = ref.nextElementSibling;
+                      if (content) {
+                        const contentElement = content.querySelector('[data-radix-select-content]') as HTMLElement;
+                        if (contentElement) {
+                          contentElement.style.width = `${ref.clientWidth}px`;
+                        }
+                      }
+                    }
+                  }}
+                >
                   <Select.Value placeholder="Category" />
                   <Select.Icon>
                     <ChevronDownIcon />
@@ -217,6 +242,7 @@ const NewsSetupModal: React.FC = () => {
                     className="overflow-hidden rounded-md bg-white shadow-lg z-50"
                     position="popper"
                     sideOffset={5}
+                    style={{ width: 'var(--radix-select-trigger-width)' }}
                   >
                     <Select.ScrollUpButton className="flex h-6 items-center justify-center bg-white">
                       <ChevronUpIcon />
@@ -298,7 +324,19 @@ const NewsSetupModal: React.FC = () => {
                   value={selectedBrand}
                   onValueChange={setSelectedBrand}
                 >
-                  <Select.Trigger className="inline-flex w-full items-center justify-between rounded-xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main">
+                  <Select.Trigger className="inline-flex w-full items-center justify-between rounded-xl border border-theme-accent/20 bg-white py-2 px-3 text-sm shadow-sm focus:border-theme-main focus:outline-none focus:ring-1 focus:ring-theme-main"
+                    ref={(ref) => {
+                      if (ref) {
+                        const content = ref.nextElementSibling;
+                        if (content) {
+                          const contentElement = content.querySelector('[data-radix-select-content]') as HTMLElement;
+                          if (contentElement) {
+                            contentElement.style.width = `${ref.clientWidth}px`;
+                          }
+                        }
+                      }
+                    }}
+                  >
                     <Select.Value placeholder="Select Brand" />
                     <Select.Icon>
                       <ChevronDownIcon />
@@ -310,6 +348,7 @@ const NewsSetupModal: React.FC = () => {
                       className="overflow-hidden rounded-md bg-white shadow-lg z-50"
                       position="popper"
                       sideOffset={5}
+                      style={{ width: 'var(--radix-select-trigger-width)' }}
                     >
                       <Select.ScrollUpButton className="flex h-6 items-center justify-center bg-white">
                         <ChevronUpIcon />
