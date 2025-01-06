@@ -84,8 +84,8 @@ body {
 }
 
 .message.sent .message-content {
-  background-color: #6869ac;
-  color: white;
+  /* background-color: #6869ac;
+  color: white; */
   border-radius: 16px 16px 4px 16px;
 }
 
