@@ -92,7 +92,8 @@ const DiscussPage = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           prompt: prompt,
-          news_type_context: JSON.stringify(news),
+          // news_type_context: JSON.stringify(news),
+          news_type_context: "",
         }),
       });
 
