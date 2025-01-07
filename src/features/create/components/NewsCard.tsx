@@ -31,7 +31,7 @@ export const NewsCard = ({ news, fromTrustBucketPage }: NewsCardProps) => {
   };
   return (
     <>
-      <div className="rounded-lg hover:shadow-main shadow-main group relative flex-1 w-full h-36 box-border p-4 bg-white shadow-slate-300 overflow-hidden cursor-pointer" onDoubleClick={onClick}>
+      <div className="rounded-lg hover:shadow-main shadow-main group relative flex-1 w-full h-36 box-border p-4 bg-white shadow-slate-300 overflow-hidden cursor-pointer" onClick={onClick}>
         <div className="mb-2 h-full w-full">
           <Flex direction="column">
             <Heading

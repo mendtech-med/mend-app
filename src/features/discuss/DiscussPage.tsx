@@ -4,7 +4,7 @@ import DOMPurify from 'dompurify';
 import * as Popover from '@radix-ui/react-popover';
 import { MixerHorizontalIcon, Cross2Icon } from '@radix-ui/react-icons';
 import { baseURL } from '../../services/api/axios';
-import { Button, DropdownMenu } from '@radix-ui/themes';
+import { DropdownMenu } from '@radix-ui/themes';
 import { INews } from '../../services/api/types';
 import { newsHandlers } from '../../services/handlers/news';
 
@@ -237,31 +237,6 @@ const DiscussPage = () => {
           </div>
           <h1>Graf AI</h1>
         </div>
-        <div className="">
-          <DropdownMenu.Root>
-            <DropdownMenu.Trigger>
-              <Button color="gray" variant="soft">
-                {selectedNews?.newsTitle || 'Select a news'}
-                <DropdownMenu.TriggerIcon />
-              </Button>
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content color="gray" variant="soft">
-              {isLoadingNews ? (
-                <div className="loader">Loading...</div> // Loader for news
-              ) : (
-                news.map((newsItem) => (
-                  <DropdownMenu.Item
-                    key={newsItem._id}
-                    className='hover:bg-theme-main/5 hover:text-theme-main '
-                    onClick={() => setSelectedNews(newsItem)}
-                  >
-                    {newsItem.newsTitle}
-                  </DropdownMenu.Item>
-                ))
-              )}
-            </DropdownMenu.Content>
-          </DropdownMenu.Root>
-        </div>
 
         <div className="flex items-center gap-3">
           {/* Active Filters Display */}
@@ -283,6 +258,32 @@ const DiscussPage = () => {
 
           {/* Filter Popover */}
           <FilterPopover />
+
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger>
+              <button className='btn bg-theme-main/5 p-2 rounded-xl flex items-center content-between gap-2 truncate text-theme-main'>
+                <div data-tooltip={selectedNews?.newsTitle || 'Select chat context'} className='tooltip truncate w-40'>
+                  {selectedNews?.newsTitle || 'Select chat context'}
+                </div>
+                <DropdownMenu.TriggerIcon />
+              </button>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content color="gray" variant="soft">
+              {isLoadingNews ? (
+                <div className="loader">Loading...</div> // Loader for news
+              ) : (
+                news.map((newsItem) => (
+                  <DropdownMenu.Item
+                    key={newsItem._id}
+                    className='hover:bg-theme-main/5 hover:text-theme-main '
+                    onClick={() => setSelectedNews(newsItem)}
+                  >
+                    {newsItem.newsTitle}
+                  </DropdownMenu.Item>
+                ))
+              )}
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
         </div>
       </div>
 

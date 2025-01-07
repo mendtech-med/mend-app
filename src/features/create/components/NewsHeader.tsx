@@ -10,7 +10,7 @@ export const NewsHeader = ({ searchTerm, onSearchChange }: NewsHeaderProps) => {
     <div className="flex items-center gap-4">
       <Input
         className='max-w-sm'
-        placeholder="Search categories..."
+        placeholder="Search articles..."
         // icon={<MagnifyingGlassIcon className="h-4 w-4" />}
         value={searchTerm}
         onChange={(e : React.ChangeEvent<HTMLInputElement>) => onSearchChange(e.target.value)}

@@ -480,3 +480,32 @@ body {
   scrollbar-width: thin; /* Makes the scrollbar thinner */
   scrollbar-color: #eee #f9f9f9; /* Thumb color | Track color */
 }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  visibility: hidden;
+  opacity: 0;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 5px;
+  position: absolute;
+  z-index: 10;
+  bottom: 120%; /* Position above */
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
