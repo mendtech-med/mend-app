@@ -50,11 +50,19 @@ const SubscriptionForm: React.FC<SubscriptionFormProps> = ({ planId, billingCycl
             }
           }
         });
-
+        console.log("RESULT PaymentForm.tsx", result);
+        
         if (result.error) {
           setError(result.error.message || 'Payment failed');
           setIsProcessing(false);
           return;
+        } else {
+          // Payment successful
+          const paymentMethodId = result.paymentIntent?.payment_method;
+          console.log('Payment method ID:', paymentMethodId);
+          if (typeof (paymentMethodId) === 'string') {
+            await subscriptionHandler.attachMethod({ email, paymentMethodId });
+          }
         }
 
         // 3. Handle Successful Subscription

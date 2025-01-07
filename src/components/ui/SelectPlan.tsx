@@ -1,49 +1,34 @@
-import * as Select from '@radix-ui/react-select';
-import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
+import React from 'react';
 import { PLAN_OPTIONS } from '../../libs/constants';
 
 interface SelectPlanProps {
-    onSelectPlanAndBilling: (plan: string, billing: string) => void;
+    onSelectPlanAndBilling: (plan: string) => void;
+    value: string;
 }
 
-const SelectPlan: React.FC<SelectPlanProps> = ({ onSelectPlanAndBilling }) => {
-    const handleSelect = (value: string) => {
-        const [plan, billing] = value.split('-');
-        onSelectPlanAndBilling(plan, billing);
+const SelectPlan: React.FC<SelectPlanProps> = ({ value, onSelectPlanAndBilling }) => {
+    const handleSelectPlan = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const val = event.target.value;
+        console.log("Inside the select plan", val);
+        
+        onSelectPlanAndBilling(val);
     };
 
     return (
-        <Select.Root onValueChange={handleSelect}>
-            <Select.Trigger
-                className="flex items-center justify-between w-full bg-gray-50 border border-gray-300 p-2 rounded-lg"
-                aria-label="Select plan"
-            >
-                <Select.Value placeholder="Select your plan" />
-                <Select.Icon>
-                    <ChevronDownIcon />
-                </Select.Icon>
-            </Select.Trigger>
-
-            <Select.Content className="bg-white rounded-md shadow-lg">
-                <Select.ScrollUpButton className="flex items-center justify-center">
-                    <ChevronUpIcon />
-                </Select.ScrollUpButton>
-                <Select.Viewport className="p-2">
-                    {PLAN_OPTIONS.map((option) => (
-                        <Select.Item
-                            key={option.value}
-                            value={option.value}
-                            className="flex items-center px-4 py-2 hover:bg-gray-100 rounded-md cursor-pointer"
-                        >
-                            <Select.ItemText>{option.label}</Select.ItemText>
-                        </Select.Item>
-                    ))}
-                </Select.Viewport>
-                <Select.ScrollDownButton className="flex items-center justify-center">
-                    <ChevronDownIcon />
-                </Select.ScrollDownButton>
-            </Select.Content>
-        </Select.Root>
+        <select
+            className="w-full px-3 py-2 border rounded-md"
+            onChange={handleSelectPlan}
+            defaultValue="" // Ensures a placeholder is shown initially
+        >
+            <option value={value} disabled>
+                Select your plan
+            </option>
+            {PLAN_OPTIONS.map((planDetails, index) => (
+                <option key={index} value={planDetails.value}>
+                    {planDetails.label}
+                </option>
+            ))}
+        </select>
     );
 };
 

@@ -39,8 +39,11 @@ export const ENDPOINTS = {
   SUBSCRIPTION: {
     DETAILS: '/subscription/',
     SUBCRIBE: '/subscription/',
+    ADD_ACCOUNT: '/subscription/add-account',
     CANCEL: '/subscription/cancel',
     UPGRADE: '/subscription/upgrade',
+    UPDATE: '/subscription/update',
+    ATTACH: '/subscription/attach-payment-method',
     GET: (id: string) => `/${id}`,
     DELETE: (id: string) => `/news/delete/${id}`,
   },

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { LogoSVG } from "../../assets/images/svgs"
 
-const ErrorBoundary = () => {
+const NoInternetConnection = () => {
     const navigate = useNavigate();
     const handleNavigate = () => {
         navigate('/')
@@ -12,7 +12,7 @@ const ErrorBoundary = () => {
 
             <div className="space-y-2">
                 <h1>
-                    Something went wrong
+                    No internet connection
                 </h1>
                 <button
                     onClick={handleNavigate}
@@ -22,4 +22,4 @@ const ErrorBoundary = () => {
     )
 }
 
-export default ErrorBoundary
+export default NoInternetConnection

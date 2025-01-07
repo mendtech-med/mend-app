@@ -14,6 +14,8 @@ import {
   NewsPage,
   PaymentPage,
   PlanSelectionPage,
+  NoInternetConnection,
+  Error,
 } from '../features';
 import { categoryLoader } from '../features/category-setup/loaders/categoryLoader';
 import { readerLoader } from '../features/reader-setup/loaders/readerLoader';
@@ -46,6 +48,7 @@ export const router = createBrowserRouter(
     {
       path: '/',
       element: <PrivateRoute />,
+      errorElement: <Error />,
       children: [
         {
           index: true,
@@ -89,6 +92,10 @@ export const router = createBrowserRouter(
           element: <HelpPage />,
         },
       ],
+    },
+    {
+      path: '/no-internet-connection',
+      element: <NoInternetConnection />,
     },
   ],
   {

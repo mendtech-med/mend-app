@@ -69,9 +69,9 @@ const LoginPage: React.FC = () => {
         navigate('/');
       }
     } catch (err) {
-      const error = err as { response: { data: { message: string, plan: boolean } } };
-      console.error(error.response.data);
-      if (!error.response.data.plan) {
+      const error = err as { response: { data: { message: string, plan: 'NOT_FOUND' } } };
+
+      if (error.response.data.plan === 'NOT_FOUND') {
         navigate('/select-plan', {
           state: { email },
           replace: true

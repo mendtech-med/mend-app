@@ -12,3 +12,5 @@ export { default as SignupPage } from './auth/SignupPage';
 export { default as ConfirmationPage } from './auth/ConfirmationPage';
 export { default as PaymentPage } from './auth/PaymentPage';
 export { default as PlanSelectionPage } from './auth/PlanSelectionPage';
+export { default as NoInternetConnection } from './other/noInternet';
+export { default as Error } from './other/error';
