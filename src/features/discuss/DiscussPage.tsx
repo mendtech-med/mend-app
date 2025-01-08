@@ -300,7 +300,7 @@ const DiscussPage = () => {
             </div>
             
             <div
-              className={`message-content ${message.type === 'sent' ? 'bg-theme-main/20 text-theme-main' : ''}`}
+              className={`message-content ${message.type === 'sent' ? 'bg-theme-main/20 text-black' : ''}`}
               dangerouslySetInnerHTML={{ __html: parseMessage(message.text) }}
             />
           </div>
