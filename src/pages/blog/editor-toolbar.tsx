@@ -266,13 +266,13 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
     switch (popoverView) {
       case 'find':
         return (
-          <div className="bg-white rounded-lg border border-gray-200 shadow-lg w-60 popover-container">
+          <div className="bg-white rounded-lg border border-gray-200 shadow-lg w-60 popover-container text-sm font-medium text-gray-700 px-1">
             {/* <div className="popover-header">Find</div> */}
             <div className="">
               {findList?.map((item, index) => (
                 <div key={index} className="">
                   <button
-                    className='text-theme-main flex justify-between w-full hover:bg-theme-main/10 my-1 py-2 px-2  cursor-pointer '
+                    className='flex justify-between w-full my-2 py-1 px-2 cursor-pointer hover:bg-slate-100 hover:text-theme-main'
                     onClick={() => handleFind(item)}
                   >
                     {item}
@@ -296,12 +296,12 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
         );
       case 'refer':
         return (
-          <div className="bg-white rounded-lg border border-gray-200 shadow-lg w-60 popover-container">
+          <div className="bg-white rounded-lg border border-gray-200 shadow-lg w-60 popover-container text-sm font-medium text-gray-700 px-1">
             <div className="">
               {news.refer?.map((item, index) => (
                 <div key={index}>
                   <button
-                    className="text-theme-main flex justify-between w-full hover:bg-theme-main/10 my-1 py-2 px-2  cursor-pointer "
+                    className="flex justify-between w-full my-2 py-1 px-2 cursor-pointer hover:bg-slate-100 hover:text-theme-main"
                     onClick={() => handleRefer(item.content)}
                   >
                     <div className="text-start text-truncate w-60">
@@ -332,16 +332,16 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
         );
       default:
         return (
-          <div className="bg-white rounded-lg border border-gray-200 shadow-lg w-60 popover-container">
+          <div className="bg-white rounded-lg border border-gray-200 shadow-lg w-60 popover-container text-sm font-medium text-gray-700 px-1">
             <button
-              className="text-theme-main flex justify-between w-full hover:bg-theme-main/10 my-1 py-2 px-2  cursor-pointer "
+              className="flex justify-between w-full my-2 py-1 px-2 cursor-pointer hover:bg-slate-100 hover:text-theme-main"
               onClick={() => setPopoverView('find')}
             >
               Find
               <MdArrowForward />
             </button>
             <button
-              className="text-theme-main flex justify-between w-full hover:bg-theme-main/10 my-1 py-2 px-2  cursor-pointer "
+              className="flex justify-between w-full my-2 py-1 px-2 cursor-pointer hover:bg-slate-100 hover:text-theme-main"
               onClick={() => setPopoverView('refer')}
             >
               Refer
