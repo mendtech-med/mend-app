@@ -31,13 +31,13 @@ export const NewsCard = ({ news, fromTrustBucketPage }: NewsCardProps) => {
   };
   return (
     <>
-      <div className="rounded-lg hover:shadow-main shadow-main group relative flex-1 w-full h-36 box-border p-4 bg-white shadow-slate-300 overflow-hidden cursor-pointer" onClick={onClick}>
+      <div className="rounded-lg hover:shadow-main shadow-main group relative flex-1 w-full h-36 box-border p-4 bg-white shadow-slate-300 overflow-hidden cursor-pointer">
         <div className="mb-2 h-full w-full">
-          <Flex direction="column">
+          <Flex direction="column" onClick={onClick}>
             <Heading
               mb="2"
               size="4"
-              className="capitalize !font-normal text-theme-main"
+              className="capitalize !font-normal text-theme-main truncate line-clamp-1"
             >
               {news.newsTitle}
             </Heading>

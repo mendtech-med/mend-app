@@ -58,29 +58,32 @@ const TrustBucketPage = () => {
         <div className="m-3">
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
-              <Button color="gray" variant="soft">
+              <button className='btn bg-theme-main/5 p-2 rounded-xl flex items-center content-between gap-2 truncate text-theme-main'>
                 Options
                 <DropdownMenu.TriggerIcon />
-              </Button>
+              </button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Content color="gray" variant="soft">
               <DropdownMenu.Label>Toggle Columns</DropdownMenu.Label>
-              <DropdownMenu.Item>
+              <DropdownMenu.Item className='hover:bg-theme-main/5 hover:text-theme-main text-theme-accent'>
                 <Checkbox
+                  className='text-theme-main'
                   checked={visibleColumns.content}
                   onCheckedChange={() => handleColumnToggle('content')}
                 />
                   Content
               </DropdownMenu.Item>
-              <DropdownMenu.Item>
+              <DropdownMenu.Item className='hover:bg-theme-main/5 hover:text-theme-main text-theme-accent'>
                 <Checkbox
+                  className='text-theme-main'
                   checked={visibleColumns.source}
                   onCheckedChange={() => handleColumnToggle('source')}
                 />
                   Source
               </DropdownMenu.Item>
-              <DropdownMenu.Item>
+              <DropdownMenu.Item className='hover:bg-theme-main/5 hover:text-theme-main text-theme-accent'>
                 <Checkbox
+                  className='text-theme-main'
                   checked={visibleColumns.createdAt}
                   onCheckedChange={() => handleColumnToggle('createdAt')}
                 />
