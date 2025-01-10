@@ -150,7 +150,7 @@ const TrustBucketPage = () => {
                 <Heading
                   mb="2"
                   size="4"
-                  className="capitalize !font-normal text-theme-main"
+                  className="capitalize !font-normal text-theme-main truncate line-clamp-1"
                 >
                   {currentNews.newsTitle}
                 </Heading>
