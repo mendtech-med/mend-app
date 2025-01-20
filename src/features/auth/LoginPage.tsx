@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EyeNoneIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { useAuth } from '../../context/authContext';
@@ -56,28 +56,26 @@ const LoginPage: React.FC = () => {
       const data = response;
 
       if (data.success) {
-        login({
-          access_token: data.access_token,
-          refresh_token: data.refresh_token,
-          expiry: data.expiry,
-          email: data.user.email,
-          given_name: data.user.given_name,
-          family_name: data.user.family_name,
-        });
-
-        toast.success(data.message);
-        navigate('/');
+        handleSuccessfulLogin(data);
       }
     } catch (err) {
       const error = err as { response: { data: { message: string, plan: 'NOT_FOUND' } } };
 
       if (error.response.data.plan === 'NOT_FOUND') {
-        navigate('/select-plan', {
-          state: { email },
-          replace: true
-        })
+        if (redirectUri) {
+          // Handle plan not found for extension users
+          const redirectUrl = new URL(redirectUri);
+          redirectUrl.searchParams.set('error', 'plan_not_found');
+          window.location.href = redirectUrl.toString();
+        } else {
+          navigate('/select-plan', {
+            state: { email },
+            replace: true
+          });
+        }
         return;
       }
+      
       if (error.response.data.message) {
         toast.error(error.response.data.message);
         return;
@@ -102,6 +100,44 @@ const LoginPage: React.FC = () => {
         ...prev,
         password: { message: '', hasError: false },
       }));
+    }
+  };
+
+
+  // For Extension
+  // Add new state for redirect URI
+  const [redirectUri, setRedirectUri] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check for redirect_uri in URL parameters when component mounts
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirect = urlParams.get('redirect_uri');
+    if (redirect) {
+      setRedirectUri(redirect);
+    }
+  }, []);
+
+  const handleSuccessfulLogin = (data: any) => {
+    if (redirectUri) {
+      // If there's a redirect URI (coming from Chrome extension)
+      const redirectUrl = new URL(redirectUri);
+      redirectUrl.searchParams.set('token', data.access_token);
+      
+      // Redirect back to the Chrome extension
+      window.location.href = redirectUrl.toString();
+    } else {
+      // Normal web app flow
+      login({
+        access_token: data.access_token,
+        refresh_token: data.refresh_token,
+        expiry: data.expiry,
+        email: data.user.email,
+        given_name: data.user.given_name,
+        family_name: data.user.family_name,
+      });
+
+      toast.success(data.message);
+      navigate('/');
     }
   };
 

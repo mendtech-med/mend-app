@@ -73,7 +73,7 @@ const DiscussPage = () => {
     if (news.length === 0) {
       getNews();
     }
-  });
+  }, []);
 
   const sendMessage = async () => {
     if (!inputValue.trim()) return;
