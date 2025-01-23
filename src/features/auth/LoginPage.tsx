@@ -122,7 +122,6 @@ const LoginPage: React.FC = () => {
       // If there's a redirect URI (coming from Chrome extension)
       const redirectUrl = new URL(redirectUri);
       redirectUrl.searchParams.set('token', data.access_token);
-      
       // Redirect back to the Chrome extension
       window.location.href = redirectUrl.toString();
     } else {
