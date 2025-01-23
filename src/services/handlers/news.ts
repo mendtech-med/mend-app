@@ -33,6 +33,16 @@ export const newsHandlers = {
     return response.data;
   },
 
+  chatbot: async (prompt : string) => {
+    const data = JSON.stringify({
+      prompt: prompt,
+      // news_type_context: JSON.stringify(news),
+      news_type_context: "",
+    });
+    const response = await axiosInstance.post("/chatbot", data);
+    return response.data;
+  },
+
   // SS : simple news generation
   generateNews: async (data: INews) => {
     const response = await axiosInstance.post(ENDPOINTS.NEWS.GENERATE, {

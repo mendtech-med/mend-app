@@ -3,7 +3,6 @@ import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import * as Popover from '@radix-ui/react-popover';
 import { MixerHorizontalIcon, Cross2Icon } from '@radix-ui/react-icons';
-import { baseURL } from '../../services/api/axios';
 import { DropdownMenu } from '@radix-ui/themes';
 import { INews } from '../../services/api/types';
 import { newsHandlers } from '../../services/handlers/news';
@@ -87,26 +86,14 @@ const DiscussPage = () => {
     const prompt = filters ? `${inputValue}\n${filters}` : inputValue;
 
     try {
-      const response = await fetch(baseURL + '/chatbot', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: prompt,
-          // news_type_context: JSON.stringify(news),
-          news_type_context: "",
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
+      
+      const data = await newsHandlers.chatbot(prompt);
       if (data.news) {
         const botMessage = new Message(
           data.news,
           'received',
           AI_AVATAR,
-          data.sources ? data.sources : []
+          []
         );
         setMessages((prev) => [...prev, botMessage]);
       } else {
