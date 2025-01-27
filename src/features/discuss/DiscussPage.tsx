@@ -6,6 +6,8 @@ import { MixerHorizontalIcon, Cross2Icon } from '@radix-ui/react-icons';
 import { DropdownMenu } from '@radix-ui/themes';
 import { INews } from '../../services/api/types';
 import { newsHandlers } from '../../services/handlers/news';
+import { axiosInstanceChatbot } from '../../services/api/axios';
+import { useAuth } from '../../context/authContext';
 
 class Message {
   text: string;
@@ -40,6 +42,7 @@ const DiscussPage = () => {
   const [news, setNews] = useState<INews[]>([]);
   const [isLoadingNews, setIsLoadingNews] = useState<boolean>(true);
   // const [filterPriority, setFilterPriority] = useState<string>('all');
+  const { user } = useAuth();
 
   const AI_AVATAR = '../../assets/images/svgs/graf.png';
   const USER_AVATAR = 'https://placehold.co/32x32';
@@ -87,10 +90,16 @@ const DiscussPage = () => {
 
     try {
       
-      const data = await newsHandlers.chatbot(prompt);
-      if (data.news) {
+      // const data = await newsHandlers.chatbot(prompt);
+      const payload = JSON.stringify({
+        query: prompt,
+        user_id: user?.email ?? "gust user",
+      });
+      const response = await axiosInstanceChatbot.post("/chatbot", payload);
+      const data = response.data;
+      if (data.answer) {
         const botMessage = new Message(
-          data.news,
+          data.answer,
           'received',
           AI_AVATAR,
           []

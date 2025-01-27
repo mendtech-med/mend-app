@@ -1,12 +1,21 @@
 import axios from 'axios';
 
 export const baseURL = 'https://chatbot.newsgraf.com/backend';
+export const chatbotURL = 'https://chatbot.newsgraf.com';
 // export const baseURL = 'https://x283426ve3.execute-api.us-east-1.amazonaws.com';
-// export const baseURL = 'http://localhost:8001';
+// export const baseURL = 'http://localhost:8000';
 
 const axiosInstance = axios.create({
   baseURL,
-  timeout: 10000,
+  timeout: 100000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export const axiosInstanceChatbot = axios.create({
+  baseURL : chatbotURL,
+  timeout: 300000,
   headers: {
     'Content-Type': 'application/json',
   },
