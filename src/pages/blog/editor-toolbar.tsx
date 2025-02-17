@@ -181,7 +181,7 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
     };
     try {
       const data = await newsHandlers.findSelectedText(payload);
-      editor?.chain().focus().setHorizontalRule().run();
+      // editor?.chain().focus().setHorizontalRule().run();
       editor
         .chain()
         .focus()
@@ -192,7 +192,7 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
             "\n<p><br><br class='ProseMirror-trailingBreak'></p>\n"
         )
         .run();
-      editor?.chain().focus().setHorizontalRule().run();
+      // editor?.chain().focus().setHorizontalRule().run();
       setIsRewriting(false);
     } catch (error) {
       setIsRewriting(false);
