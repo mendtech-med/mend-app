@@ -233,7 +233,11 @@ const EditorToolbar: FC<EditorToolbarProps> = ({
         .chain()
         .focus()
         .deleteRange({ from, to })
-        .insertContent(data.data.replace(/\n/g, ''))
+        .insertContent(
+          "\n<p><br><br class='ProseMirror-trailingBreak'></p>\n" +
+          data.data.replace(/\n/g, '') +
+          "\n<p><br><br class='ProseMirror-trailingBreak'></p>\n"
+        )
         .run();
       setIsRewriting(false);
     } catch (error) {
