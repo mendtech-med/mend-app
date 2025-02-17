@@ -51,6 +51,7 @@ const NewsPage = () => {
           
           if (newsData.content == null) {
             setGeneratingNewContent(true);
+            // const token = localStorage.getItem('access_token');
             const url = `${baseURL}${ENDPOINTS.NEWS.GENERATE_STREAM}?id=${newsId}`;
             eventSource = new EventSource(url);
             try {
@@ -66,6 +67,7 @@ const NewsPage = () => {
               });
     
               eventSource.addEventListener("end", (event) => {
+                setContent((prevContent) => prevContent.replace("null", "").trim());
                 console.log(event);
                 if (isMounted) {
                   setGeneratingNewContent(false);
