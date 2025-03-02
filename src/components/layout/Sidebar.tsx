@@ -24,7 +24,7 @@ const Sidebar = () => {
     { name: 'Reader Setup', path: '/reader-setup', icon: <PersonIcon /> },
     { name: 'Category Setup', path: '/category-setup', icon: <GlobeIcon /> },
     { name: 'Trust Bucket', path: '/trust-bucket', icon: <DrawingPinIcon /> },
-    { name: 'Subscription', path: '/subscription', icon: <ArrowRightIcon /> },
+    // { name: 'Subscription', path: '/subscription', icon: <ArrowRightIcon /> },
     { name: 'Help', path: '/help', icon: <QuestionMarkCircledIcon /> },
   ];
 

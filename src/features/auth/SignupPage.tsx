@@ -37,11 +37,11 @@ const SignUpPage: React.FC = () => {
     family_name: { message: '', hasError: false },
   });
 
-  const isValidQuery = verifyQuery(searchParams)
-  if (!isValidQuery) {
-    handleRedirect('https://www.newsgraf.com/pricing');
-    return <Spinner />
-  }
+  // const isValidQuery = verifyQuery(searchParams)
+  // if (!isValidQuery) {
+  //   handleRedirect('https://www.newsgraf.com/pricing');
+  //   return <Spinner />
+  // }
 
   const getFieldError = (value: string, hasError: boolean, type: FieldType) => {
     if (hasError) {

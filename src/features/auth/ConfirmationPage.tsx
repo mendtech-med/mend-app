@@ -17,10 +17,10 @@ const OTPPage: React.FC = () => {
   const { email, plan, billing } = location.state;
   console.log(email, plan, billing);
 
-  if (!email || !plan || !billing) {
-    handleRedirect('https://www.newsgraf.com/pricing');
-    return <Spinner />
-  }
+  // if (!email || !plan || !billing) {
+  //   handleRedirect('https://www.newsgraf.com/pricing');
+  //   return <Spinner />
+  // }
 
   const onConfirmOTP = async () => {
     if (otp.trim() === '' || otp.length !== 6) {
@@ -38,12 +38,13 @@ const OTPPage: React.FC = () => {
 
       if (result.success) {
         toast.success(result.message);
-        navigate('/payment', {
-          state: {
-            plan, billing, email
-          },
-          replace: true
-        });
+        navigate('/login')
+        // navigate('/payment', {
+        //   state: {
+        //     plan, billing, email
+        //   },
+        //   replace: true
+        // });
       }
     } catch (err) {
       const error = err as { response: { data: { message: string } } };
