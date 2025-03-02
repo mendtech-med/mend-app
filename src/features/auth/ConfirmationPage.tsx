@@ -5,7 +5,7 @@ import { LogoSVG } from '../../assets/images/svgs';
 import { Heading, Spinner, Text } from '@radix-ui/themes';
 import Input from '../../components/ui/input';
 import { authHandlers } from '../../services/handlers/auth';
-import { handleRedirect } from '../../libs/utils/handleRedirect';
+// import { handleRedirect } from '../../libs/utils/handleRedirect';
 
 const OTPPage: React.FC = () => {
   const navigate = useNavigate();

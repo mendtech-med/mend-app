@@ -2,7 +2,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { LogoSVG } from '../../assets/images/svgs';
 import { MdChevronRight } from 'react-icons/md';
 import {
-  ArrowRightIcon,
   DrawingPinIcon,
   ExitIcon,
   GlobeIcon,

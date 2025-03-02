@@ -7,17 +7,17 @@ import toast from 'react-hot-toast';
 import { LogoSVG } from '../../assets/images/svgs';
 import { Heading, Spinner, Text } from '@radix-ui/themes';
 import Input from '../../components/ui/input';
-import { handleRedirect } from '../../libs/utils/handleRedirect';
+// import { handleRedirect } from '../../libs/utils/handleRedirect';
 
-const verifyQuery = (searchParams: URLSearchParams) => {
-  const planQuery = ['pro', 'collaborate', 'enterprise'].includes(searchParams.get('plan')!)
-  const billingQuery = ['monthly', 'annually'].includes(searchParams.get('billing')!)
-  if (planQuery && billingQuery) {
-    return true
-  }
+// const verifyQuery = (searchParams: URLSearchParams) => {
+//   const planQuery = ['pro', 'collaborate', 'enterprise'].includes(searchParams.get('plan')!)
+//   const billingQuery = ['monthly', 'annually'].includes(searchParams.get('billing')!)
+//   if (planQuery && billingQuery) {
+//     return true
+//   }
 
-  return false
-}
+//   return false
+// }
 
 type FieldType = 'email' | 'password' | 'given_name' | 'family_name';
 
