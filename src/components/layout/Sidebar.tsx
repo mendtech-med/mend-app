@@ -45,7 +45,7 @@ const Sidebar = () => {
 
   return (
     <aside className="w-64 h-screen bg-white text-theme-accent flex flex-col">
-      <div className="py-8 justify-center px-4">
+      <div className="py-4 justify-center px-12">
         <img src={LogoSVG} alt="Logo" />
       </div>
       <nav className="flex-1 p-4">
