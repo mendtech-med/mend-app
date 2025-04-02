@@ -8,6 +8,7 @@ import { INews } from '../../services/api/types';
 import { newsHandlers } from '../../services/handlers/news';
 import { axiosInstanceChatbot } from '../../services/api/axios';
 import { useAuth } from '../../context/authContext';
+import { GrafSVG } from '../../assets/images/svgs';
 
 class Message {
   text: string;
@@ -229,8 +230,8 @@ const DiscussPage = () => {
     <div className="chat-container">
       <div className="chat-header">
         <div className="header-content">
-          <div className='bg-theme-main/5 p-2 rounded-full font-bold text-theme-main'>
-            G
+          <div className='bg-theme-main/5 p-2 rounded-full font-bold text-theme-main h-8 w-12'>
+            <img src={GrafSVG} alt="Logo" />
           </div>
           <h1>Graf AI</h1>
         </div>
