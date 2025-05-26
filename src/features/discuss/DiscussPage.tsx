@@ -132,12 +132,12 @@ const DiscussPage = () => {
         query: prompt,
         user_id: user?.email ?? 'gust user',
       });
-      // const response = await axiosInstanceChatbot.post("/chatbot", payload);
-      // const data = response.data;
+      const response = await axiosInstanceChatbot.post("/chatbot", payload);
+      const data = response.data;
       // Sample direct response
-      const data = JSON.parse(
-        '{"answer":"It seems like you\'ve entered a random string, \\"sdafsd,\\" which doesn\'t relate to any financial topic or context. If you have a specific question or need information on a particular financial market, company, or currency, please provide those details so I can assist you with relevant data and news.\\n\\nWould you like me to fetch information on a specific market or company that you\'re interested in? This would help provide detailed insights and up-to-date financial news relevant to your interests.","session_id":"9e9408a8-aa2d-4650-91ce-3a43efaf95ec","user_id":"johndoe3@yopmail.com"}'
-      );
+      // const data = JSON.parse(
+      //   '{"answer":"It seems like you\'ve entered a random string, \\"sdafsd,\\" which doesn\'t relate to any financial topic or context. If you have a specific question or need information on a particular financial market, company, or currency, please provide those details so I can assist you with relevant data and news.\\n\\nWould you like me to fetch information on a specific market or company that you\'re interested in? This would help provide detailed insights and up-to-date financial news relevant to your interests.","session_id":"9e9408a8-aa2d-4650-91ce-3a43efaf95ec","user_id":"johndoe3@yopmail.com"}'
+      // );
       if (data.answer) {
         const botMessage = new Message(data.answer, 'received', AI_AVATAR, []);
         setMessages((prev) => [...prev, botMessage]);
