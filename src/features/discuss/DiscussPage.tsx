@@ -112,9 +112,10 @@ const DiscussPage = () => {
     setInputValue('');
     setSelectedFile(null);
     setIsTyping(true);
-
+    console.log("first")
     const filters = `Filters: ${startDate} to ${endDate}, Tags: ${selectedTags}`;
     const prompt = filters ? `${inputValue}\n${filters}` : inputValue;
+    console.log("2nd", prompt)
 
     try {
       // Handle file upload if needed
@@ -411,11 +412,14 @@ const DiscussPage = () => {
                   'AI'
                 )}
               </div>
-
-              <div
-                className={`message-content relative ${message.type === 'sent' ? 'bg-theme-main/20 text-black' : ''}`}
-                dangerouslySetInnerHTML={{ __html: parseMessage(message.text) }}
-              >
+              <div className="relative flex items-center">
+                <div
+                  className={`message-content ${message.type === 'sent' ? 'bg-theme-main/20 text-black' : ''}`}
+                  dangerouslySetInnerHTML={{
+                    __html: parseMessage(message.text),
+                  }}
+                >
+                </div>
                 {message.type === 'received' && (
                   <div className="absolute bottom-2 right-2 flex space-x-2">
                     <button
