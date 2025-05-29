@@ -112,10 +112,9 @@ const DiscussPage = () => {
     setInputValue('');
     setSelectedFile(null);
     setIsTyping(true);
-    console.log("first")
+
     const filters = `Filters: ${startDate} to ${endDate}, Tags: ${selectedTags}`;
     const prompt = filters ? `${inputValue}\n${filters}` : inputValue;
-    console.log("2nd", prompt)
 
     try {
       // Handle file upload if needed
@@ -467,7 +466,7 @@ const DiscussPage = () => {
 
       <div className="chat-input bg-theme-main">
         {selectedFile && (
-          <div className="flex items-center px-3 py-1 bg-gray-100 rounded-lg mb-2 mx-2">
+          <div className="flex items-center px-3 bg-gray-100 rounded-lg mx-2">
             <span className="truncate text-sm text-gray-700">
               {selectedFile.name}
             </span>
@@ -475,36 +474,36 @@ const DiscussPage = () => {
               onClick={() => setSelectedFile(null)}
               className="ml-2 text-gray-500 hover:text-red-500"
             >
-              <Cross2Icon />
+              <Cross2Icon height={20} width={20}/>
             </button>
           </div>
         )}
-        <div className="flex-grow flex items-center">
-          <button
-            onClick={handleFileAttach}
-            className="p-2 text-white hover:bg-theme-main/80"
-            title="Attach file"
+        <button
+          onClick={handleFileAttach}
+          className="p-2 text-white hover:bg-theme-main/80"
+          title="Attach file"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
-            </svg>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              className="hidden"
-            />
-          </button>
+            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+          </svg>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            className="hidden"
+          />
+        </button>
+        <div className="flex-grow flex items-center">
           <input
             type="text"
             placeholder="Enter message..."
